@@ -1,0 +1,9 @@
+ignoredBuiltDependencies:
+  - sharp
+  - unrs-resolver
+
+packages:
+  - "app"
+  - "components"
+  - "lib"
+  - "cms/**"
