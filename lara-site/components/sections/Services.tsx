@@ -49,7 +49,10 @@ export function Services() {
           <div key={s.number} className="rounded-2xl border border-black/10 bg-white p-8 sm:p-10">
             <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
               <div>
-                <p className="text-sm text-neutral-400">{s.number}</p>
+                <div className="flex items-center gap-3 text-neutral-400">
+                  <span className="text-xs tracking-[0.25em]">{s.number}</span>
+                  <span className="h-px w-10 bg-neutral-200" />
+                </div>
                 <h3 className="mt-3 text-2xl font-light text-neutral-950 sm:text-3xl">{s.title}</h3>
                 <p className="mt-2 text-sm text-neutral-600">{s.tagline}</p>
                 <p className="mt-6 max-w-3xl text-sm leading-relaxed text-neutral-600">{s.desc}</p>
@@ -64,9 +67,16 @@ export function Services() {
                 </ul>
               </div>
 
-              <div className="text-right">
-                <p className="text-xs uppercase tracking-[0.2em] text-neutral-400">a partir de</p>
-                <p className="mt-2 text-3xl font-light text-neutral-950">{s.price}</p>
+              <div className="relative pl-10 sm:pl-12">
+                <span className="absolute left-0 top-2 h-16 w-px bg-neutral-200" />
+
+                <div className="text-right">
+                  <p className="text-[11px] tracking-[0.25em] text-neutral-500">A PARTIR DE</p>
+                  <p className="mt-2 text-3xl font-medium text-neutral-900">
+                    
+                    <span className="ml-1">{s.price}</span>
+                  </p>
+                </div>
               </div>
             </div>
           </div>

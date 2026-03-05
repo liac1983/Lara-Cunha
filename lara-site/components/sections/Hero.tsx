@@ -1,50 +1,39 @@
+import Reveal from "@/components/Reveal";
+
 export function Hero() {
   return (
-    <section id="top" className="w-full bg-[#f6f1ea] py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-6">
-        <div className="mx-auto max-w-4xl text-center">
-          <h1 className="text-4xl font-light tracking-tight text-neutral-950 sm:text-6xl">
+    <section className="bg-[#F5f5f5]">
+      <div className="mx-auto max-w-5xl px-6 py-24 text-center">
+        <Reveal delay={0.05} y={14}>
+          <h1 className="text-5xl md:text-7xl font-medium tracking-tight">
             Websites com identidade de marca
           </h1>
+        </Reveal>
 
-          <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-neutral-600 sm:text-lg">
-            Design requintado, performance e engenharia.
-            <br />
+        <Reveal delay={0.18} y={10}>
+          <p className="mt-6 text-lg text-neutral-600">
+            Design requintado, performance e engenharia. <br />
             Não faço templates — cada projeto é único.
           </p>
+        </Reveal>
 
-          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-            <a
-              href="#contacto"
-              className="w-full rounded-full bg-neutral-950 px-8 py-4 text-center text-xs tracking-[0.2em] text-white hover:bg-neutral-900 sm:w-auto"
-            >
-              MARCAR CHAMADA
-            </a>
+        <div className="mt-10 flex justify-center gap-4">
+          <Reveal delay={0.28} y={8}>
+            <button className="rounded-full bg-black px-7 py-3 text-white">
+              Marcar chamada
+            </button>
+          </Reveal>
 
-            <a
-              href="#servicos"
-              className="w-full rounded-full border border-neutral-950 px-8 py-4 text-center text-xs tracking-[0.2em] text-neutral-950 hover:bg-white/60 sm:w-auto"
-            >
-              VER SERVIÇOS
-            </a>
-          </div>
-
-          <div className="mt-14 grid grid-cols-1 gap-8 border-t border-black/10 pt-10 sm:grid-cols-3">
-            <div>
-              <p className="text-sm font-medium text-neutral-950">Identidade</p>
-              <p className="mt-2 text-sm text-neutral-600">Design de marca único</p>
-            </div>
-            <div>
-              <p className="text-sm font-medium text-neutral-950">Detalhe</p>
-              <p className="mt-2 text-sm text-neutral-600">Estética requintada</p>
-            </div>
-            <div>
-              <p className="text-sm font-medium text-neutral-950">Engenharia</p>
-              <p className="mt-2 text-sm text-neutral-600">Performance sólida</p>
-            </div>
-          </div>
+          <Reveal delay={0.35} y={8}>
+            <button className="group relative rounded-full border border-black px-7 py-3">
+            <span className="relative">
+                Ver serviços
+                <span className="absolute left-0 -bottom-1 h-[1px] w-full origin-left scale-x-0 bg-black transition-transform duration-300 group-hover:scale-x-100" />
+            </span>
+            </button>
+          </Reveal>
         </div>
       </div>
     </section>
-  )
+  );
 }

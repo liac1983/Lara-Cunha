@@ -5,6 +5,8 @@ import { Section } from "@/components/Section";
 
 type Status = "idle" | "ok" | "error";
 
+const RequiredMark = () => <span className="ml-1 text-neutral-400">*</span>
+
 export function Contact() {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
@@ -69,12 +71,12 @@ export function Contact() {
         <div className="grid gap-6 md:grid-cols-2">
           <div>
             <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
-              Nome
+              Nome <RequiredMark />
             </label>
             <input
               name="name"
               required
-              className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none placeholder:text-neutral-400"
+              className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none placeholder:text-neutral-400 focus:border-black/40 required:invalid:border-black/30"
               placeholder="O teu nome"
               autoComplete="name"
             />
@@ -82,13 +84,13 @@ export function Contact() {
 
           <div>
             <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
-              Email
+              Email <RequiredMark />
             </label>
             <input
               name="email"
               type="email"
               required
-              className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none placeholder:text-neutral-400"
+              className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none placeholder:text-neutral-400 focus:border-black/40 required:invalid:border-black/30"
               placeholder="email@exemplo.com"
               autoComplete="email"
             />
@@ -145,7 +147,7 @@ export function Contact() {
             </label>
             <input
               name="deadline"
-              className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none placeholder:text-neutral-400"
+              className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none placeholder:text-neutral-400 focus:border-black/40 required:invalid:border-black/30"
               placeholder="Ex: 2 meses"
             />
           </div>
@@ -156,7 +158,7 @@ export function Contact() {
             </label>
             <input
               name="pagesOrProducts"
-              className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none placeholder:text-neutral-400"
+              className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none placeholder:text-neutral-400 focus:border-black/40 required:invalid:border-black/30"
               placeholder="Ex: 5 páginas ou 50 produtos"
             />
           </div>
@@ -167,7 +169,7 @@ export function Contact() {
             </label>
             <input
               name="budget"
-              className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none placeholder:text-neutral-400"
+              className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none placeholder:text-neutral-400 focus:border-black/40 required:invalid:border-black/30"
               placeholder="Ex: €3.000 – €5.000"
             />
           </div>
@@ -175,12 +177,12 @@ export function Contact() {
 
         <div>
           <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
-            Conte-me sobre o projeto
+            Conte-me sobre o projeto <RequiredMark />
           </label>
           <textarea
             name="message"
             required
-            className="mt-2 w-full border border-black/10 bg-transparent p-4 text-neutral-950 outline-none placeholder:text-neutral-400"
+            className="mt-2 w-full border border-black/10 bg-transparent p-4 text-neutral-950 outline-none placeholder:text-neutral-400 focus:border-black/30 required:invalid:border-black/30"
             rows={6}
             placeholder="Descreve o teu projeto, referências, identidade visual existente…"
           />
@@ -189,10 +191,14 @@ export function Contact() {
         <button
           type="submit"
           disabled={loading}
-          className="mx-auto mt-4 w-full max-w-xs rounded-full bg-neutral-950 px-8 py-4 text-xs tracking-[0.2em] text-white hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-60"
+          className="mx-auto mt-4 w-full max-w-sm rounded-full bg-neutral-950 px-10 py-5 text-sm tracking-[0.22em] text-white shadow-sm transition hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? "A ENVIAR..." : "ENVIAR PEDIDO"}
         </button>
+
+        <p className="mx-auto -mt-1 text-center text-xs text-neutral-500">
+            Resposta em até <span className="text-neutral-700">24h úteis</span>.
+        </p>
 
         {/* feedback sem estragar o layout */}
         {status === "ok" && (
