@@ -15,4 +15,14 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
+
+  vite: {
+    build: { sourcemap: false },
+    esbuild: { sourcemap: false },
+    optimizeDeps: {
+      exclude: ["@portabletext/editor"],
+    },
+  },
 })
+
+

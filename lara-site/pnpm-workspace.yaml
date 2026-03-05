@@ -1,9 +1,13 @@
+packages:
+  - app
+  - components
+  - lib
+  - cms/**
+
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
 
-packages:
-  - "app"
-  - "components"
-  - "lib"
-  - "cms/**"
+onlyBuiltDependencies:
+  - esbuild
+  - msw
