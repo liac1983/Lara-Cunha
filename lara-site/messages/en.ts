@@ -90,7 +90,37 @@ portfolio: {
   resultLabel: "RESULT",
 },
 
-
+faq: {
+  eyebrow: "FAQ",
+  title: "Frequently asked questions",
+  subtitle: "Clear answers so you can make decisions with confidence.",
+  items: [
+    {
+      q: "How long does a project take?",
+      a: "It depends on the type and complexity. A one-page website may take 3–4 weeks, while a large online store may take 8–12 weeks. The exact timeline is defined after the briefing.",
+    },
+    {
+      q: "How many revisions are included?",
+      a: "Each project phase includes 2–3 rounds of revisions. Additional changes outside the initial scope are quoted separately.",
+    },
+    {
+      q: "Do I need to provide the content?",
+      a: "Yes, ideally you provide the text and images. I can recommend copywriters and photographers, or help curate the content.",
+    },
+    {
+      q: "How do domain and hosting work?",
+      a: "I can help with choosing and setting up the domain and hosting. I recommend solutions such as Vercel/Netlify for websites and dedicated solutions for online stores.",
+    },
+    {
+      q: "Do you offer maintenance after launch?",
+      a: "Yes. There are monthly packages that include updates, backups, monitoring, and small changes.",
+    },
+    {
+      q: "How does payment work?",
+      a: "Payment is milestone-based: 30% at the start, 40% after design approval, and 30% at launch. I accept bank transfer or MB Way.",
+    },
+  ],
+},
 
 }
 

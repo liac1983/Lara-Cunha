@@ -29,7 +29,7 @@ export default async function Page({
         projects={projects}
         dict={dict}
       />
-      <Faq />
+      <Faq dict={dict} />
       <Contact />
     </main>
   )

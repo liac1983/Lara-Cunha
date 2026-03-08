@@ -4,45 +4,34 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Section } from "@/components/Section"
 
-const faqs = [
-  {
-    q: "Quanto tempo demora um projeto?",
-    a: "Depende do tipo e complexidade. Um site one page pode levar 3–4 semanas, enquanto uma loja online grande pode levar 8–12 semanas. O prazo exato é definido após o briefing.",
-  },
-  {
-    q: "Quantas revisões estão incluídas?",
-    a: "Cada fase do projeto inclui 2–3 rondas de revisões. Alterações adicionais fora do scope inicial são orçamentadas separadamente.",
-  },
-  {
-    q: "Preciso fornecer os conteúdos?",
-    a: "Sim, idealmente forneces textos e imagens. Posso recomendar copywriters e fotógrafos, ou ajudar na curadoria do conteúdo.",
-  },
-  {
-    q: "Como funciona o domínio e hosting?",
-    a: "Posso ajudar na escolha e configuração do domínio e hosting. Recomendo soluções como Vercel/Netlify para sites e soluções dedicadas para lojas.",
-  },
-  {
-    q: "Fazem manutenção após o lançamento?",
-    a: "Sim. Existem pacotes mensais que incluem atualizações, backups, monitorização e pequenas alterações.",
-  },
-  {
-    q: "Como funciona o pagamento?",
-    a: "Pagamento faseado por marcos: 30% no início, 40% após aprovação do design, 30% no lançamento. Aceito transferência bancária ou MB Way.",
-  },
-]
+type FaqItem = {
+  q: string
+  a: string
+}
 
-export function Faq() {
+type FaqProps = {
+  dict: {
+    faq: {
+      eyebrow: string
+      title: string
+      subtitle: string
+      items: FaqItem[]
+    }
+  }
+}
+
+export function Faq({ dict }: FaqProps) {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   return (
     <Section
       id="faq"
-      eyebrow="FAQ"
-      title="Perguntas frequentes"
-      subtitle="Respostas claras para tomares decisões com confiança."
+      eyebrow={dict.faq.eyebrow}
+      title={dict.faq.title}
+      subtitle={dict.faq.subtitle}
     >
       <div className="rounded-2xl border border-black/10 bg-white">
-        {faqs.map((f, i) => {
+        {dict.faq.items.map((f, i) => {
           const isOpen = openIndex === i
 
           return (
@@ -57,8 +46,10 @@ export function Faq() {
                   {f.q}
                 </span>
 
-                {/* minimal + icon (vertical stroke collapses) */}
-                <span className="relative h-5 w-5 flex-none text-neutral-400 transition-colors duration-200" style={{ color: isOpen ? "#0a0a0a" : undefined }}>
+                <span
+                  className="relative h-5 w-5 flex-none text-neutral-400 transition-colors duration-200"
+                  style={{ color: isOpen ? "#0a0a0a" : undefined }}
+                >
                   <span className="absolute left-1/2 top-1/2 h-px w-4 -translate-x-1/2 -translate-y-1/2 bg-current" />
                   <motion.span
                     className="absolute left-1/2 top-1/2 h-4 w-px -translate-x-1/2 -translate-y-1/2 bg-current"
@@ -86,8 +77,9 @@ export function Faq() {
                 )}
               </AnimatePresence>
 
-              {/* divider (hidden on last item) */}
-              {i !== faqs.length - 1 && <div className="mt-7 h-px w-full bg-black/10" />}
+              {i !== dict.faq.items.length - 1 && (
+                <div className="mt-7 h-px w-full bg-black/10" />
+              )}
             </div>
           )
         })}
@@ -95,3 +87,4 @@ export function Faq() {
     </Section>
   )
 }
+
