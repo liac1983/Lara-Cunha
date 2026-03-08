@@ -6,7 +6,7 @@ import { Portfolio } from "@/components/sections/Portfolio"
 import { Faq } from "@/components/sections/Faq"
 import { Contact } from "@/components/sections/Contact"
 import { getDictionary } from "@/lib/i18n"
-import { getServices } from "@/lib/sanity/queries"
+import { getServices, getProjects } from "@/lib/sanity/queries"
 
 export default async function Page({
   params,
@@ -16,6 +16,7 @@ export default async function Page({
   const { locale } = await params
   const dict = getDictionary(locale)
   const services = await getServices()
+  const projects = await getProjects()
 
   return (
     <main>
@@ -23,7 +24,11 @@ export default async function Page({
       <About dict={dict} />
       <Services locale={locale as "pt" | "en"} services={services} dict={dict} />
       <Process dict={dict} />
-      <Portfolio />
+      <Portfolio
+        locale={locale as "pt" | "en"}
+        projects={projects}
+        dict={dict}
+      />
       <Faq />
       <Contact />
     </main>

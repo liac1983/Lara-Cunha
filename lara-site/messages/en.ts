@@ -80,5 +80,17 @@ export const en = {
     },
   ],
 },
+
+portfolio: {
+  eyebrow: "Portfolio",
+  title: "Selected projects",
+  subtitle: "Examples of work focused on identity, clarity, and execution.",
+  clientLabel: "CLIENT",
+  goalLabel: "GOAL",
+  resultLabel: "RESULT",
+},
+
+
+
 }
 

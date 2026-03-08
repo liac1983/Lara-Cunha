@@ -1,61 +1,124 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from "sanity"
 
 export const project = defineType({
-  name: 'project',
-  title: 'Project',
-  type: 'document',
+  name: "project",
+  title: "Project",
+  type: "document",
   fields: [
     defineField({
-      name: 'title',
-      title: 'Title',
-      type: 'string',
-      validation: Rule => Rule.required(),
+      name: "order",
+      title: "Order",
+      type: "number",
     }),
+
     defineField({
-      name: 'slug',
-      title: 'Slug',
-      type: 'slug',
+      name: "title",
+      title: "Title",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pt",
+          title: "Português",
+          type: "string",
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "string",
+        }),
+      ],
+    }),
+
+    defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
       options: {
-        source: 'title',
+        source: "title.pt",
         maxLength: 96,
       },
-      validation: Rule => Rule.required(),
     }),
+
     defineField({
-      name: 'client',
-      title: 'Client',
-      type: 'string',
+      name: "shortDescription",
+      title: "Short Description",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pt",
+          title: "Português",
+          type: "text",
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "text",
+        }),
+      ],
     }),
+
     defineField({
-      name: 'category',
-      title: 'Category',
-      type: 'string',
+      name: "clientType",
+      title: "Client Type",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pt",
+          title: "Português",
+          type: "string",
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "string",
+        }),
+      ],
     }),
+
     defineField({
-      name: 'coverImage',
-      title: 'Cover Image',
-      type: 'image',
+      name: "goal",
+      title: "Goal",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pt",
+          title: "Português",
+          type: "text",
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "text",
+        }),
+      ],
+    }),
+
+    defineField({
+      name: "result",
+      title: "Result",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pt",
+          title: "Português",
+          type: "text",
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "text",
+        }),
+      ],
+    }),
+
+    defineField({
+      name: "mainImage",
+      title: "Main Image",
+      type: "image",
       options: {
         hotspot: true,
       },
     }),
-    defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'text',
-    }),
-    defineField({
-      name: 'url',
-      title: 'Live URL',
-      type: 'url',
-    }),
-    defineField({
-      name: 'featured',
-      title: 'Featured Project',
-      type: 'boolean',
-      initialValue: false,
-    }),
   ],
 })
-
 
