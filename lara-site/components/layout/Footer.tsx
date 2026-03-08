@@ -1,4 +1,8 @@
-export function Footer() {
+type FooterProps = {
+  dict: any
+}
+
+export function Footer({ dict }: FooterProps) {
   return (
     <footer className="border-t border-black/5 bg-neutral-950 text-white">
       <div className="mx-auto max-w-6xl px-6 py-12">
@@ -13,7 +17,7 @@ export function Footer() {
         </div>
 
         <p className="mt-10 text-xs text-white/50">
-          © {new Date().getFullYear()} — Desenvolvido com atenção ao detalhe
+          © {new Date().getFullYear()} — {dict.footer.credit}
         </p>
       </div>
     </footer>

@@ -122,5 +122,58 @@ faq: {
   ],
 },
 
+
+contact: {
+  eyebrow: "Contacto",
+  title: "Vamos trabalhar juntas?",
+  subtitle:
+    "Preenche o formulário. Após enviar, recebes um email para marcar a primeira chamada.",
+  fields: {
+    name: "Nome",
+    email: "Email",
+    siteType: "Tipo de site",
+    goal: "Objetivo principal",
+    deadline: "Prazo desejado",
+    pages: "Nº páginas / produtos",
+    budget: "Orçamento (opcional)",
+    message: "Conta-me sobre o projeto",
+  },
+  placeholders: {
+    name: "O teu nome",
+    email: "email@exemplo.com",
+    deadline: "Ex: 2 meses",
+    pages: "Ex: 5 páginas ou 50 produtos",
+    budget: "Ex: €3.000 – €5.000",
+    message:
+      "Descreve o teu projeto, referências, identidade visual existente…",
+  },
+  selectPlaceholder: "Selecione…",
+  options: {
+    siteType: {
+      onePage: "Site One Page",
+      multiPage: "Site Multipágina",
+      simpleStore: "Loja Online Simples",
+      largeStore: "Loja Online Grande",
+    },
+    goal: {
+      leads: "Gerar leads",
+      bookings: "Agendamentos",
+      sales: "Vendas online",
+      institutional: "Presença institucional",
+      rebranding: "Rebranding / reposicionamento",
+    },
+  },
+  button: "ENVIAR PEDIDO",
+  sending: "A ENVIAR...",
+  success: "Pedido enviado com sucesso. Vou responder-te em breve.",
+  error: "Erro ao enviar. Tenta novamente.",
+  responsePrefix: "Resposta em até",
+  responseTime: "24h úteis",
+},
+
+footer: {
+  credit: "Desenvolvido com atenção ao detalhe",
+}
+
 }
 

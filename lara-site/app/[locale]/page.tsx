@@ -30,7 +30,7 @@ export default async function Page({
         dict={dict}
       />
       <Faq dict={dict} />
-      <Contact />
+      <Contact dict={dict} />
     </main>
   )
 }

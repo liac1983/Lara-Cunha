@@ -122,5 +122,57 @@ faq: {
   ],
 },
 
+contact: {
+  eyebrow: "Contact",
+  title: "Shall we work together?",
+  subtitle:
+    "Fill in the form. After submitting, you will receive an email to schedule the first call.",
+  fields: {
+    name: "Name",
+    email: "Email",
+    siteType: "Website type",
+    goal: "Main goal",
+    deadline: "Desired timeline",
+    pages: "Pages / products",
+    budget: "Budget (optional)",
+    message: "Tell me about the project",
+  },
+  placeholders: {
+    name: "Your name",
+    email: "email@example.com",
+    deadline: "Ex: 2 months",
+    pages: "Ex: 5 pages or 50 products",
+    budget: "Ex: €3,000 – €5,000",
+    message:
+      "Describe your project, references, existing visual identity…",
+  },
+  selectPlaceholder: "Select…",
+  options: {
+    siteType: {
+      onePage: "One Page Website",
+      multiPage: "Multi-page Website",
+      simpleStore: "Simple Online Store",
+      largeStore: "Large Online Store",
+    },
+    goal: {
+      leads: "Generate leads",
+      bookings: "Bookings",
+      sales: "Online sales",
+      institutional: "Institutional presence",
+      rebranding: "Rebranding / repositioning",
+    },
+  },
+  button: "SEND REQUEST",
+  sending: "SENDING...",
+  success: "Request sent successfully. I will reply soon.",
+  error: "Error sending request. Please try again.",
+  responsePrefix: "Response within",
+  responseTime: "24 business hours",
+},
+
+footer: {
+  credit: "Developed with attention to detail",
+},
+
 }
 

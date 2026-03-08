@@ -16,7 +16,7 @@ export default async function LocaleLayout({
     <div className="min-h-screen bg-white text-neutral-950">
       <Header locale={locale} dict={dict} />
       {children}
-      <Footer />
+      <Footer dict={dict} />
     </div>
   )
 }
