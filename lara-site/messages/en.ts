@@ -33,5 +33,52 @@ export const en = {
     footerNote:
       "Milestone-based payment. Timeline estimated after briefing. Optional maintenance available.",
   },
+
+  process: {
+  eyebrow: "Process",
+  title: "Transparent, professional, results-driven",
+  subtitle:
+    "The process is what justifies the investment: it reduces risk, ensures quality, and elevates perceived value.",
+  maintenance:
+    "Optional support and maintenance available after launch: updates, backups, monitoring, and continuous improvements.",
+  steps: [
+    {
+      n: "01",
+      title: "Initial Call",
+      time: "15–30 min",
+      desc: "Goals, target audience, visual references, and expectations.",
+    },
+    {
+      n: "02",
+      title: "Workshop & Briefing",
+      time: "1–2h",
+      desc: "Requirements, content, sitemap, priorities, and features.",
+    },
+    {
+      n: "03",
+      title: "Proposal & Timeline",
+      time: "2–3 days",
+      desc: "Defined scope, final price, phases, milestones, and timeline.",
+    },
+    {
+      n: "04",
+      title: "Design",
+      time: "Variable",
+      desc: "Visual direction, wireframes, and final UI with included revisions.",
+    },
+    {
+      n: "05",
+      title: "Development",
+      time: "Variable",
+      desc: "Technical implementation focused on performance, SEO, and accessibility.",
+    },
+    {
+      n: "06",
+      title: "QA & Launch",
+      time: "3–5 days",
+      desc: "Testing, optimization, validation, and launch with analytics.",
+    },
+  ],
+},
 }
 

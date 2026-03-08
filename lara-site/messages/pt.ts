@@ -33,5 +33,52 @@ export const pt = {
     footerNote:
       "Pagamento faseado por marcos do projeto. Prazo estimado após briefing. Manutenção opcional disponível.",
   },
+
+  process: {
+  eyebrow: "Processo",
+  title: "Transparente, profissional, orientado a resultados",
+  subtitle:
+    "O processo é o que justifica o investimento: reduz riscos, garante qualidade e eleva a perceção de valor.",
+  maintenance:
+    "Suporte e manutenção (opcional) disponível após o lançamento: atualizações, backups, monitorização e melhorias contínuas.",
+  steps: [
+    {
+      n: "01",
+      title: "Call Inicial",
+      time: "15–30 min",
+      desc: "Objetivos, público-alvo, referências visuais e expectativas.",
+    },
+    {
+      n: "02",
+      title: "Workshop & Briefing",
+      time: "1–2h",
+      desc: "Requisitos, conteúdo, sitemap, prioridades e funcionalidades.",
+    },
+    {
+      n: "03",
+      title: "Proposta & Cronograma",
+      time: "2–3 dias",
+      desc: "Scope fechado, preço final, fases, marcos e timeline.",
+    },
+    {
+      n: "04",
+      title: "Design",
+      time: "Variável",
+      desc: "Direção visual, wireframes e UI final com revisões incluídas.",
+    },
+    {
+      n: "05",
+      title: "Desenvolvimento",
+      time: "Variável",
+      desc: "Implementação técnica com foco em performance, SEO e acessibilidade.",
+    },
+    {
+      n: "06",
+      title: "QA & Lançamento",
+      time: "3–5 dias",
+      desc: "Testes, otimização, validação e lançamento com analytics.",
+    },
+  ],
+},
 }
 
