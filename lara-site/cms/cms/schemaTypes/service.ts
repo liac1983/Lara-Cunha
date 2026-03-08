@@ -1,30 +1,94 @@
-import { defineType, defineField } from 'sanity'
+import { defineType, defineField } from "sanity"
 
 export const service = defineType({
-  name: 'service',
-  title: 'Service',
-  type: 'document',
+  name: "service",
+  title: "Service",
+  type: "document",
   fields: [
     defineField({
-      name: 'title',
-      title: 'Title',
-      type: 'string',
+      name: "order",
+      title: "Order",
+      type: "number",
     }),
     defineField({
-      name: 'priceFrom',
-      title: 'Price From',
-      type: 'string',
+      name: "title",
+      title: "Title",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pt",
+          title: "Português",
+          type: "string",
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "string",
+        }),
+      ],
     }),
     defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'text',
+      name: "tagline",
+      title: "Tagline",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pt",
+          title: "Português",
+          type: "string",
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "string",
+        }),
+      ],
     }),
     defineField({
-      name: 'features',
-      title: 'Features',
-      type: 'array',
-      of: [{ type: 'string' }],
+      name: "priceFrom",
+      title: "Price From",
+      type: "string",
+    }),
+    defineField({
+      name: "description",
+      title: "Description",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pt",
+          title: "Português",
+          type: "text",
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "text",
+        }),
+      ],
+    }),
+    defineField({
+      name: "features",
+      title: "Features",
+      type: "array",
+      of: [
+        defineType({
+          name: "localizedFeature",
+          title: "Localized Feature",
+          type: "object",
+          fields: [
+            defineField({
+              name: "pt",
+              title: "Português",
+              type: "string",
+            }),
+            defineField({
+              name: "en",
+              title: "English",
+              type: "string",
+            }),
+          ],
+        }),
+      ],
     }),
   ],
 })

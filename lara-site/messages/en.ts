@@ -23,5 +23,15 @@ export const en = {
     text2:
       "Graduated in Computer Engineering from FEUP, I specialize in full-stack development and visual direction for brands that value detail, aesthetics and consistency.",
   },
+
+  services: {
+    eyebrow: "Services",
+    title: "Tailored solutions from the ground up",
+    subtitle:
+      "The values below are starting prices — the final quote is defined after a call and requirements review.",
+    priceLabel: "STARTING FROM",
+    footerNote:
+      "Milestone-based payment. Timeline estimated after briefing. Optional maintenance available.",
+  },
 }
 

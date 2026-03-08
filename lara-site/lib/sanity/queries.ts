@@ -4,9 +4,11 @@ export async function getServices() {
   return client.fetch(`
     *[_type == "service"] | order(order asc) {
       _id,
+      order,
       title,
-      description,
+      tagline,
       priceFrom,
+      description,
       features
     }
   `)
@@ -64,7 +66,6 @@ export async function getCourses() {
   `)
 }
 
-
 export async function getCourseBySlug(slug: string) {
   if (!slug) return null
   return client.fetch(
@@ -83,7 +84,6 @@ export async function getCourseBySlug(slug: string) {
     { slug }
   )
 }
-
 
 export async function getLessonsByCourseSlug(courseSlug: string) {
   return client.fetch(
@@ -135,8 +135,6 @@ export async function getLesson(courseSlug: string, lessonSlug: string) {
           url,
           type
         },
-
-        // ✅ devolve em campos diretos (o frontend já usa isto)
         "courseTitle": course->title,
         "courseSlug": course->slug.current
       }
