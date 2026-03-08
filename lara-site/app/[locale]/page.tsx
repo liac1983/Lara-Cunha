@@ -5,12 +5,20 @@ import { Process } from "@/components/sections/Process"
 import { Portfolio } from "@/components/sections/Portfolio"
 import { Faq } from "@/components/sections/Faq"
 import { Contact } from "@/components/sections/Contact"
+import { getDictionary } from "@/lib/i18n"
 
-export default function Page() {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  const dict = getDictionary(locale)
+
   return (
     <main>
-      <Hero />
-      <About />
+      <Hero dict={dict} locale={locale} />
+      <About dict={dict} />
       <Services />
       <Process />
       <Portfolio />
