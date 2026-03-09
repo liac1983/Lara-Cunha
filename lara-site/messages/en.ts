@@ -174,5 +174,28 @@ footer: {
   credit: "Developed with attention to detail",
 },
 
+courses: {
+  eyebrow: "Courses",
+  title: "Available courses",
+  subtitle: "Practical, well-structured content editable in the back office.",
+  available: "Course available.",
+  viewCourse: "VIEW COURSE",
+  backToCourses: "← BACK TO COURSES",
+  courseEyebrow: "Course",
+  lessonsLabel: "LESSONS",
+  noLessons: "There are no published lessons for this course yet.",
+  lessonEyebrow: "Lesson",
+  theory: "THEORY",
+  exercises: "EXERCISES",
+  homework: "HOMEWORK",
+  resources: "RESOURCES",
+  noTheory: "There is no theory published for this lesson yet.",
+  noExercises: "There are no exercises for this lesson yet.",
+  noHomework: "There is no homework for this lesson yet.",
+  noResources: "There are no resources for this lesson yet.",
+  backToCourse: "← BACK TO COURSE",
+  durationPrefix: "Estimated duration:",
+},
+
 }
 

@@ -11,7 +11,7 @@ type CourseCardProps = {
 export function CourseCard({ title, slug, description, eyebrow = "Curso", meta }: CourseCardProps) {
   return (
     <Link
-      href={`/cursos/${slug}`}
+      href={`/${locale}/cursos/${slug}`}
       className="group block rounded-2xl border border-black/10 bg-white p-7 sm:p-8"
     >
       <div className="flex items-start justify-between gap-6">

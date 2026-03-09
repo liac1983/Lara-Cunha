@@ -3,25 +3,37 @@ import { notFound } from "next/navigation"
 import { PortableText } from "@portabletext/react"
 import { Section } from "@/components/Section"
 import { getLesson } from "@/lib/sanity/queries"
+import { getDictionary } from "@/lib/i18n"
+
+type LocalizedText = {
+  pt?: string
+  en?: string
+}
 
 type Exercise = {
-  title?: string
-  statement?: string
+  title?: LocalizedText
+  statement?: LocalizedText
+  difficulty?: string
+  solution?: LocalizedText
 }
 
 type Resource = {
-  label?: string
+  label?: LocalizedText
   url?: string
+  type?: string
 }
 
 type Lesson = {
   _id: string
-  title: string
-  courseTitle?: string
+  title?: LocalizedText
+  courseTitle?: LocalizedText
   courseSlug: string
   lessonNumber?: number
-  duration?: string
-  theory?: any
+  duration?: LocalizedText
+  theory?: {
+    pt?: any
+    en?: any
+  }
   exercises?: Exercise[]
   homework?: Exercise[]
   resources?: Resource[]
@@ -30,11 +42,12 @@ type Lesson = {
 export default async function LessonPage({
   params,
 }: {
-  params: Promise<{ slug?: string; lessonSlug?: string }>
+  params: Promise<{ locale?: string; slug?: string; lessonSlug?: string }>
 }) {
-  const { slug, lessonSlug } = await params
-  if (!slug || !lessonSlug) return notFound()
+  const { locale, slug, lessonSlug } = await params
+  if (!locale || !slug || !lessonSlug) return notFound()
 
+  const dict = getDictionary(locale)
   const lesson: Lesson | null = await getLesson(slug, lessonSlug)
   if (!lesson) return notFound()
 
@@ -43,24 +56,39 @@ export default async function LessonPage({
       ? String(lesson.lessonNumber).padStart(2, "0")
       : null
 
+  const localizedTitle =
+    lesson.title?.[locale as "pt" | "en"] || lesson.title?.pt || ""
+
+  const localizedDuration =
+    lesson.duration?.[locale as "pt" | "en"] || lesson.duration?.pt || ""
+
+  const localizedTheory =
+    lesson.theory?.[locale as "pt" | "en"] || lesson.theory?.pt || null
+
   return (
     <Section
       id={`aula-${lesson._id}`}
-      eyebrow={`Aula ${number ?? ""}`}
-      title={lesson.title}
-      subtitle={lesson.duration ? `Duração estimada: ${lesson.duration}` : undefined}
+      eyebrow={`${dict.courses.lessonEyebrow} ${number ?? ""}`}
+      title={localizedTitle}
+      subtitle={
+        localizedDuration
+          ? `${dict.courses.durationPrefix} ${localizedDuration}`
+          : undefined
+      }
     >
       <div className="grid gap-8">
         {/* TEORIA */}
         <div className="rounded-2xl border border-black/10 bg-white p-8 sm:p-10">
-          <h3 className="text-sm tracking-[0.25em] text-neutral-500">TEORIA</h3>
+          <h3 className="text-sm tracking-[0.25em] text-neutral-500">
+            {dict.courses.theory}
+          </h3>
 
           <div className="prose prose-neutral mt-6 max-w-none">
-            {lesson.theory ? (
-              <PortableText value={lesson.theory} />
+            {localizedTheory ? (
+              <PortableText value={localizedTheory} />
             ) : (
               <p className="text-sm text-neutral-600">
-                Ainda não há teoria publicada para esta aula.
+                {dict.courses.noTheory}
               </p>
             )}
           </div>
@@ -68,51 +96,75 @@ export default async function LessonPage({
 
         {/* EXERCÍCIOS */}
         <div className="rounded-2xl border border-black/10 bg-white p-8 sm:p-10">
-          <h3 className="text-sm tracking-[0.25em] text-neutral-500">EXERCÍCIOS</h3>
+          <h3 className="text-sm tracking-[0.25em] text-neutral-500">
+            {dict.courses.exercises}
+          </h3>
 
           <div className="mt-6 grid gap-4">
             {lesson.exercises?.length ? (
-              lesson.exercises.map((ex, i) => (
-                <div key={i} className="rounded-xl border border-black/10 p-6">
-                  <p className="text-sm font-medium text-neutral-950">
-                    {ex.title ?? `Exercício ${i + 1}`}
-                  </p>
-                  {ex.statement ? (
-                    <p className="mt-2 text-sm leading-relaxed text-neutral-600">
-                      {ex.statement}
+              lesson.exercises.map((ex, i) => {
+                const exerciseTitle =
+                  ex.title?.[locale as "pt" | "en"] ||
+                  ex.title?.pt ||
+                  `${dict.courses.exercises} ${i + 1}`
+
+                const exerciseStatement =
+                  ex.statement?.[locale as "pt" | "en"] || ex.statement?.pt || ""
+
+                return (
+                  <div key={i} className="rounded-xl border border-black/10 p-6">
+                    <p className="text-sm font-medium text-neutral-950">
+                      {exerciseTitle}
                     </p>
-                  ) : null}
-                </div>
-              ))
+                    {exerciseStatement ? (
+                      <p className="mt-2 text-sm leading-relaxed text-neutral-600">
+                        {exerciseStatement}
+                      </p>
+                    ) : null}
+                  </div>
+                )
+              })
             ) : (
               <p className="text-sm text-neutral-600">
-                Ainda não existem exercícios para esta aula.
+                {dict.courses.noExercises}
               </p>
             )}
           </div>
         </div>
 
-        {/* TPC */}
+        {/* HOMEWORK */}
         <div className="rounded-2xl border border-black/10 bg-white p-8 sm:p-10">
-          <h3 className="text-sm tracking-[0.25em] text-neutral-500">TPC</h3>
+          <h3 className="text-sm tracking-[0.25em] text-neutral-500">
+            {dict.courses.homework}
+          </h3>
 
           <div className="mt-6 grid gap-4">
             {lesson.homework?.length ? (
-              lesson.homework.map((h, i) => (
-                <div key={i} className="rounded-xl border border-black/10 p-6">
-                  <p className="text-sm font-medium text-neutral-950">
-                    {h.title ?? `TPC ${i + 1}`}
-                  </p>
-                  {h.statement ? (
-                    <p className="mt-2 text-sm leading-relaxed text-neutral-600">
-                      {h.statement}
+              lesson.homework.map((h, i) => {
+                const homeworkTitle =
+                  h.title?.[locale as "pt" | "en"] ||
+                  h.title?.pt ||
+                  `${dict.courses.homework} ${i + 1}`
+
+                const homeworkStatement =
+                  h.statement?.[locale as "pt" | "en"] || h.statement?.pt || ""
+
+                return (
+                  <div key={i} className="rounded-xl border border-black/10 p-6">
+                    <p className="text-sm font-medium text-neutral-950">
+                      {homeworkTitle}
                     </p>
-                  ) : null}
-                </div>
-              ))
+                    {homeworkStatement ? (
+                      <p className="mt-2 text-sm leading-relaxed text-neutral-600">
+                        {homeworkStatement}
+                      </p>
+                    ) : null}
+                  </div>
+                )
+              })
             ) : (
               <p className="text-sm text-neutral-600">
-                Ainda não existe TPC para esta aula.
+                {dict.courses.noHomework}
               </p>
             )}
           </div>
@@ -120,24 +172,31 @@ export default async function LessonPage({
 
         {/* RECURSOS */}
         <div className="rounded-2xl border border-black/10 bg-white p-8 sm:p-10">
-          <h3 className="text-sm tracking-[0.25em] text-neutral-500">RECURSOS</h3>
+          <h3 className="text-sm tracking-[0.25em] text-neutral-500">
+            {dict.courses.resources}
+          </h3>
 
           <div className="mt-6 grid gap-2">
             {lesson.resources?.length ? (
-              lesson.resources.map((r, i) => (
-                <a
-                  key={i}
-                  href={r.url ?? "#"}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-sm text-neutral-700 underline decoration-black/20 underline-offset-4 hover:decoration-black/50"
-                >
-                  {r.label ?? r.url}
-                </a>
-              ))
+              lesson.resources.map((r, i) => {
+                const resourceLabel =
+                  r.label?.[locale as "pt" | "en"] || r.label?.pt || r.url || ""
+
+                return (
+                  <a
+                    key={i}
+                    href={r.url ?? "#"}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-sm text-neutral-700 underline decoration-black/20 underline-offset-4 hover:decoration-black/50"
+                  >
+                    {resourceLabel}
+                  </a>
+                )
+              })
             ) : (
               <p className="text-sm text-neutral-600">
-                Ainda não existem recursos para esta aula.
+                {dict.courses.noResources}
               </p>
             )}
           </div>
@@ -146,10 +205,10 @@ export default async function LessonPage({
         {/* VOLTAR */}
         <div className="flex justify-center">
           <Link
-            href={`/cursos/${lesson.courseSlug}`}
+            href={`/${locale}/cursos/${lesson.courseSlug}`}
             className="text-xs tracking-[0.2em] text-neutral-500 hover:text-neutral-950"
           >
-            ← VOLTAR AO CURSO
+            {dict.courses.backToCourse}
           </Link>
         </div>
       </div>

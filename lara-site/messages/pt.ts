@@ -173,7 +173,30 @@ contact: {
 
 footer: {
   credit: "Desenvolvido com atenção ao detalhe",
-}
+},
+
+courses: {
+  eyebrow: "Cursos",
+  title: "Cursos disponíveis",
+  subtitle: "Conteúdos práticos, bem estruturados e editáveis no backoffice.",
+  available: "Curso disponível.",
+  viewCourse: "VER CURSO",
+  backToCourses: "← VOLTAR A CURSOS",
+  courseEyebrow: "Curso",
+  lessonsLabel: "AULAS",
+  noLessons: "Ainda não existem aulas publicadas para este curso.",
+  lessonEyebrow: "Aula",
+  theory: "TEORIA",
+  exercises: "EXERCÍCIOS",
+  homework: "TPC",
+  resources: "RECURSOS",
+  noTheory: "Ainda não há teoria publicada para esta aula.",
+  noExercises: "Ainda não existem exercícios para esta aula.",
+  noHomework: "Ainda não existe TPC para esta aula.",
+  noResources: "Ainda não existem recursos para esta aula.",
+  backToCourse: "← VOLTAR AO CURSO",
+  durationPrefix: "Duração estimada:",
+},
 
 }
 

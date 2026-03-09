@@ -1,4 +1,4 @@
-import { defineType, defineField, defineArrayMember } from "sanity"
+import { defineType, defineField } from "sanity"
 
 export const lesson = defineType({
   name: "lesson",
@@ -6,18 +6,55 @@ export const lesson = defineType({
   type: "document",
   fields: [
     defineField({
+      name: "lessonNumber",
+      title: "Lesson Number",
+      type: "number",
+    }),
+
+    defineField({
       name: "title",
       title: "Title",
-      type: "string",
-      validation: (Rule) => Rule.required(),
+      type: "object",
+      fields: [
+        defineField({
+          name: "pt",
+          title: "Português",
+          type: "string",
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "string",
+        }),
+      ],
     }),
 
     defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
-      options: { source: "title", maxLength: 96 },
-      validation: (Rule) => Rule.required(),
+      options: {
+        source: "title.pt",
+        maxLength: 96,
+      },
+    }),
+
+    defineField({
+      name: "duration",
+      title: "Duration",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pt",
+          title: "Português",
+          type: "string",
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "string",
+        }),
+      ],
     }),
 
     defineField({
@@ -25,33 +62,26 @@ export const lesson = defineType({
       title: "Course",
       type: "reference",
       to: [{ type: "course" }],
-      validation: (Rule) => Rule.required(),
-    }),
-
-    defineField({
-      name: "lessonNumber",
-      title: "Lesson number",
-      type: "number",
-      validation: (Rule) => Rule.required().integer().min(1),
-    }),
-
-    defineField({
-      name: "duration",
-      title: "Duration",
-      type: "string",
-      description: 'Example: "30 min" or "1h"',
     }),
 
     defineField({
       name: "theory",
       title: "Theory",
-      type: "array",
-      of: [
-        defineArrayMember({
-          type: "block",
+      type: "object",
+      fields: [
+        defineField({
+          name: "pt",
+          title: "Português",
+          type: "array",
+          of: [{ type: "block" }],
+        }),
+        defineField({
+          name: "en",
+          title: "English",
+          type: "array",
+          of: [{ type: "block" }],
         }),
       ],
-      validation: (Rule) => Rule.required(),
     }),
 
     defineField({
@@ -59,105 +89,91 @@ export const lesson = defineType({
       title: "Exercises",
       type: "array",
       of: [
-        defineArrayMember({
+        defineType({
+          name: "localizedExercise",
+          title: "Localized Exercise",
           type: "object",
-          name: "exercise",
-          title: "Exercise",
           fields: [
             defineField({
               name: "title",
               title: "Title",
-              type: "string",
-              validation: (Rule) => Rule.required(),
+              type: "object",
+              fields: [
+                defineField({ name: "pt", title: "Português", type: "string" }),
+                defineField({ name: "en", title: "English", type: "string" }),
+              ],
             }),
             defineField({
               name: "statement",
               title: "Statement",
-              type: "text",
-              rows: 4,
-              validation: (Rule) => Rule.required(),
+              type: "object",
+              fields: [
+                defineField({ name: "pt", title: "Português", type: "text" }),
+                defineField({ name: "en", title: "English", type: "text" }),
+              ],
             }),
             defineField({
               name: "difficulty",
               title: "Difficulty",
               type: "string",
-              options: {
-                list: [
-                  { title: "Easy", value: "easy" },
-                  { title: "Medium", value: "medium" },
-                  { title: "Hard", value: "hard" },
-                ],
-                layout: "radio",
-              },
-              initialValue: "easy",
             }),
             defineField({
               name: "solution",
-              title: "Solution (optional)",
-              type: "text",
-              rows: 6,
+              title: "Solution",
+              type: "object",
+              fields: [
+                defineField({ name: "pt", title: "Português", type: "text" }),
+                defineField({ name: "en", title: "English", type: "text" }),
+              ],
             }),
           ],
-          preview: {
-            select: { title: "title", subtitle: "difficulty" },
-            prepare({ title, subtitle }) {
-              return { title, subtitle }
-            },
-          },
         }),
       ],
     }),
 
     defineField({
       name: "homework",
-      title: "Homework (TPC)",
+      title: "Homework",
       type: "array",
       of: [
-        defineArrayMember({
+        defineType({
+          name: "localizedHomework",
+          title: "Localized Homework",
           type: "object",
-          name: "homeworkItem",
-          title: "Homework item",
           fields: [
             defineField({
               name: "title",
               title: "Title",
-              type: "string",
-              validation: (Rule) => Rule.required(),
+              type: "object",
+              fields: [
+                defineField({ name: "pt", title: "Português", type: "string" }),
+                defineField({ name: "en", title: "English", type: "string" }),
+              ],
             }),
             defineField({
               name: "statement",
               title: "Statement",
-              type: "text",
-              rows: 4,
-              validation: (Rule) => Rule.required(),
+              type: "object",
+              fields: [
+                defineField({ name: "pt", title: "Português", type: "text" }),
+                defineField({ name: "en", title: "English", type: "text" }),
+              ],
             }),
             defineField({
               name: "difficulty",
               title: "Difficulty",
               type: "string",
-              options: {
-                list: [
-                  { title: "Easy", value: "easy" },
-                  { title: "Medium", value: "medium" },
-                  { title: "Hard", value: "hard" },
-                ],
-                layout: "radio",
-              },
-              initialValue: "easy",
             }),
             defineField({
               name: "solution",
-              title: "Solution (optional)",
-              type: "text",
-              rows: 6,
+              title: "Solution",
+              type: "object",
+              fields: [
+                defineField({ name: "pt", title: "Português", type: "text" }),
+                defineField({ name: "en", title: "English", type: "text" }),
+              ],
             }),
           ],
-          preview: {
-            select: { title: "title", subtitle: "difficulty" },
-            prepare({ title, subtitle }) {
-              return { title, subtitle }
-            },
-          },
         }),
       ],
     }),
@@ -167,71 +183,33 @@ export const lesson = defineType({
       title: "Resources",
       type: "array",
       of: [
-        defineArrayMember({
-          type: "object",
-          name: "resource",
+        defineType({
+          name: "resourceItem",
           title: "Resource",
+          type: "object",
           fields: [
             defineField({
               name: "label",
               title: "Label",
-              type: "string",
-              validation: (Rule) => Rule.required(),
+              type: "object",
+              fields: [
+                defineField({ name: "pt", title: "Português", type: "string" }),
+                defineField({ name: "en", title: "English", type: "string" }),
+              ],
             }),
             defineField({
               name: "url",
               title: "URL",
               type: "url",
-              validation: (Rule) => Rule.required(),
             }),
             defineField({
               name: "type",
               title: "Type",
               type: "string",
-              options: {
-                list: [
-                  { title: "Link", value: "link" },
-                  { title: "GitHub", value: "github" },
-                  { title: "PDF", value: "pdf" },
-                  { title: "Video", value: "video" },
-                ],
-              },
-              initialValue: "link",
             }),
           ],
-          preview: {
-            select: { title: "label", subtitle: "type" },
-            prepare({ title, subtitle }) {
-              return { title, subtitle }
-            },
-          },
         }),
       ],
     }),
   ],
-
-  orderings: [
-    {
-      title: "Lesson number",
-      name: "lessonNumberAsc",
-      by: [{ field: "lessonNumber", direction: "asc" }],
-    },
-  ],
-
-  preview: {
-    select: {
-      title: "title",
-      lessonNumber: "lessonNumber",
-      courseTitle: "course.title",
-    },
-    prepare({ title, lessonNumber, courseTitle }) {
-      const prefix = typeof lessonNumber === "number" ? String(lessonNumber).padStart(2, "0") : "—"
-      return {
-        title: `${prefix} — ${title}`,
-        subtitle: courseTitle ? `Course: ${courseTitle}` : undefined,
-      }
-    },
-  },
 })
-
-

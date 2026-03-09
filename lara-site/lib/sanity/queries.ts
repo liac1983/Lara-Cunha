@@ -57,21 +57,22 @@ export async function getSiteSettings() {
 export async function getCourses() {
   return client.fetch(`
     *[_type == "course" && isPublished == true]
-      | order(coalesce(order, 9999) asc, title asc) {
+      | order(coalesce(order, 9999) asc, title.pt asc) {
         _id,
+        order,
         title,
         "slug": slug.current,
         description,
-        coverImage,
         level,
-        isPublished,
-        order
+        coverImage,
+        isPublished
       }
   `)
 }
 
 export async function getCourseBySlug(slug: string) {
   if (!slug) return null
+
   return client.fetch(
     `
       *[_type == "course" && slug.current == $slug][0]{
@@ -79,10 +80,9 @@ export async function getCourseBySlug(slug: string) {
         title,
         "slug": slug.current,
         description,
-        coverImage,
         level,
-        isPublished,
-        order
+        coverImage,
+        isPublished
       }
     `,
     { slug }
@@ -90,6 +90,8 @@ export async function getCourseBySlug(slug: string) {
 }
 
 export async function getLessonsByCourseSlug(courseSlug: string) {
+  if (!courseSlug) return []
+
   return client.fetch(
     `
       *[_type == "lesson" && course->slug.current == $courseSlug]
@@ -99,10 +101,8 @@ export async function getLessonsByCourseSlug(courseSlug: string) {
           "slug": slug.current,
           lessonNumber,
           duration,
-          "course": {
-            "title": course->title,
-            "slug": course->slug.current
-          }
+          "courseTitle": course->title,
+          "courseSlug": course->slug.current
         }
     `,
     { courseSlug }
@@ -110,10 +110,13 @@ export async function getLessonsByCourseSlug(courseSlug: string) {
 }
 
 export async function getLesson(courseSlug: string, lessonSlug: string) {
+  if (!courseSlug || !lessonSlug) return null
+
   return client.fetch(
     `
-      *[_type == "lesson" 
-        && slug.current == $lessonSlug 
+      *[
+        _type == "lesson"
+        && slug.current == $lessonSlug
         && course->slug.current == $courseSlug
       ][0]{
         _id,
