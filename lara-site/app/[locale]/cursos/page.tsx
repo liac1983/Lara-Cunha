@@ -59,7 +59,7 @@ export default async function CoursesPage({
               <div className="mt-6">
                 <Link
                   href={`/${locale}/cursos/${c.slug}`}
-                  className="inline-flex rounded-full border border-black/10 px-6 py-3 text-xs tracking-[0.2em] text-neutral-950 hover:border-black/20"
+                  className="inline-flex rounded-full border border-neutral-900 px-6 py-3 text-xs tracking-[0.2em] text-neutral-950 transition hover:bg-neutral-950 hover:text-white"
                 >
                   {dict.courses.viewCourse}
                 </Link>
