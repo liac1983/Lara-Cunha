@@ -1,3 +1,6 @@
+"use client"
+
+import { useEffect, useRef, useState } from "react"
 import Reveal from "@/components/Reveal"
 
 type HeroProps = {
@@ -11,6 +14,8 @@ type HeroProps = {
   }
   locale: string
 }
+
+
 
 export function Hero({ dict, locale }: HeroProps) {
   return (
