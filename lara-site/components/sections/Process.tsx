@@ -64,7 +64,7 @@ export function Process({ dict }: ProcessProps) {
           </div>
         </div>
 
-        <div className="mt-10 rounded-2xl bg-[#f6f1ea] p-8 text-sm text-neutral-700">
+        <div className="mt-10 rounded-2xl bg-[#F5F5F5] p-8 text-sm text-neutral-700">
           {dict.process.maintenance}
         </div>
       </div>
