@@ -1,5 +1,6 @@
 export const pt = {
   nav: {
+    about: "Sobre",
     services: "Serviços",
     process: "Processo",
     portfolio: "Portfolio",
@@ -196,6 +197,30 @@ courses: {
   noResources: "Ainda não existem recursos para esta aula.",
   backToCourse: "← VOLTAR AO CURSO",
   durationPrefix: "Duração estimada:",
+},
+
+aboutPage: {
+  eyebrow: "Sobre",
+  title: "Engenharia com sensibilidade estética",
+  intro:
+    "Crio experiências digitais que combinam estrutura, clareza e direção visual refinada.",
+  paragraph1:
+    "Sou developer com uma base sólida em engenharia informática e um interesse crescente por experiências digitais orientadas pelo design.",
+  paragraph2:
+    "Ao longo do meu percurso académico e profissional, desenvolvi competências em desenvolvimento de software, frontend, testing e construção de soluções digitais com foco em clareza, desempenho e detalhe.",
+  paragraph3:
+    "Interessa-me especialmente a interseção entre estrutura técnica e identidade visual — criar websites que sejam funcionais, elegantes e alinhados com a marca.",
+  highlights: {
+    education: "Formação",
+    experience: "Experiência",
+    technologies: "Tecnologias",
+    languages: "Idiomas",
+  },
+  philosophyTitle: "Como trabalho",
+  philosophyText:
+    "Valorizo clareza, detalhe e consistência. Gosto de construir experiências digitais que parecem intencionais em cada decisão — do design à implementação.",
+  ctaTitle: "Vamos trabalhar juntas?",
+  ctaButton: "Entrar em contacto",
 },
 
 }

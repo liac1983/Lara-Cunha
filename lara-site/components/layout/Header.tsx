@@ -7,6 +7,7 @@ type HeaderProps = {
   locale: string
   dict: {
     nav: {
+      about: string
       services: string
       process: string
       portfolio: string
@@ -22,6 +23,7 @@ export function Header({ locale, dict }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false)
 
   const homeHref = `/${locale}`
+  const aboutHref = `/${locale}/about`
   const servicesHref = `/${locale}/#servicos`
   const processHref = `/${locale}/#processo`
   const portfolioHref = `/${locale}/#portfolio`
@@ -46,6 +48,11 @@ export function Header({ locale, dict }: HeaderProps) {
 
         {/* DESKTOP NAV */}
         <nav className="hidden items-center gap-8 text-sm text-neutral-700 md:flex">
+
+          <Link className="hover:text-neutral-950" href={aboutHref}>
+            {dict.nav.about}
+          </Link>
+
           <Link className="hover:text-neutral-950" href={servicesHref}>
             {dict.nav.services}
           </Link>
@@ -127,6 +134,13 @@ export function Header({ locale, dict }: HeaderProps) {
       {menuOpen && (
         <div className="border-t border-black/5 bg-white px-6 py-4 md:hidden">
           <nav className="flex flex-col gap-4 text-sm text-neutral-700">
+
+            <Link
+              href={aboutHref}
+              onClick={() => setMenuOpen(false)}
+            >
+              {dict.nav.about}
+            </Link>
 
             <Link href={servicesHref} onClick={() => setMenuOpen(false)}>
               {dict.nav.services}

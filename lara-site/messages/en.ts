@@ -1,5 +1,6 @@
 export const en = {
   nav: {
+    about: "About",
     services: "Services",
     process: "Process",
     portfolio: "Portfolio",
@@ -195,6 +196,30 @@ courses: {
   noResources: "There are no resources for this lesson yet.",
   backToCourse: "← BACK TO COURSE",
   durationPrefix: "Estimated duration:",
+},
+
+aboutPage: {
+  eyebrow: "About",
+  title: "Engineering with aesthetic sensitivity",
+  intro:
+    "I create digital experiences that combine structure, clarity, and refined visual direction.",
+  paragraph1:
+    "I’m a developer with a strong foundation in computer engineering and a growing interest in design-led digital experiences.",
+  paragraph2:
+    "Throughout my academic and professional path, I’ve developed skills in software development, frontend work, testing, and building digital solutions with a focus on clarity, performance, and detail.",
+  paragraph3:
+    "I’m especially interested in the intersection between technical structure and visual identity — creating websites that are functional, elegant, and aligned with the brand.",
+  highlights: {
+    education: "Education",
+    experience: "Experience",
+    technologies: "Technologies",
+    languages: "Languages",
+  },
+  philosophyTitle: "How I work",
+  philosophyText:
+    "I value clarity, detail, and consistency. I like building digital experiences that feel intentional in every decision — from design to implementation.",
+  ctaTitle: "Shall we work together?",
+  ctaButton: "Get in touch",
 },
 
 }
