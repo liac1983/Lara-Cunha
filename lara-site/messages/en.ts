@@ -5,6 +5,7 @@ export const en = {
     process: "Process",
     portfolio: "Portfolio",
     courses: "Courses",
+    tutoring: "Tutoring",
     faq: "FAQ",
     contact: "Contact",
     call: "Book a call",
@@ -220,6 +221,92 @@ aboutPage: {
     "I value clarity, detail, and consistency. I like building digital experiences that feel intentional in every decision — from design to implementation.",
   ctaTitle: "Shall we work together?",
   ctaButton: "Get in touch",
+},
+
+tutoringPage: {
+  hero: {
+    eyebrow: "Tutoring",
+    title: "Programming tutoring with clarity and individual support",
+    subtitle:
+      "Online sessions tailored to your level, goals, and pace — focused on solid foundations, practice, and real understanding.",
+  },
+  topics: {
+    title: "What I teach",
+    items: [
+      "C programming",
+      "Python",
+      "Java",
+      "Programming fundamentals",
+      "Algorithms and logic",
+      "Basic data structures",
+      "Test and exam preparation",
+    ],
+  },
+  format: {
+    title: "How it works",
+    text:
+      "Sessions are online, one-to-one, and tailored to your questions, goals, and pace. We can work on theory, exercises, exam preparation, or reviewing course material.",
+  },
+  audience: {
+    title: "Who it is for",
+    items: [
+      "High school students",
+      "University students",
+      "Beginners in programming",
+      "Students who want to strengthen their foundations",
+    ],
+  },
+  form: {
+    title: "Request a session",
+    subtitle:
+      "Fill in the form and I will get back to you to schedule the session.",
+  },
+},
+
+tutoringForm: {
+  fields: {
+    name: "Name",
+    email: "Email",
+    phone: "Phone",
+    topic: "Language or topic",
+    level: "Level",
+    goal: "Goal",
+    availability: "Availability",
+    message: "Message",
+  },
+  placeholders: {
+    name: "Your name",
+    email: "email@example.com",
+    phone: "Ex: +351 912 345 678",
+    availability: "Ex: Tuesday and Thursday afternoons, Saturday morning",
+    message: "Tell me about the course, your current difficulties, or what you would like to work on.",
+  },
+  selectPlaceholder: "Select…",
+  options: {
+    topic: {
+      algorithms: "Algorithms / logic",
+      other: "Other",
+    },
+    level: {
+      secondary: "Secondary school",
+      university: "University",
+      beginner: "Beginner",
+      intermediate: "Intermediate",
+    },
+    goal: {
+      followCourse: "Follow the course",
+      examPrep: "Prepare for test/exam",
+      reviewBasics: "Review the basics",
+      solveExercises: "Solve exercises",
+      other: "Other",
+    },
+  },
+  button: "REQUEST A SESSION",
+  sending: "SENDING...",
+  success: "Request sent successfully. I will get back to you soon.",
+  error: "There was an error sending your request. Please try again.",
+  responsePrefix: "Response within",
+  responseTime: "24 business hours",
 },
 
 }

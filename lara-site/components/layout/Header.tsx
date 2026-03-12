@@ -12,6 +12,7 @@ type HeaderProps = {
       process: string
       portfolio: string
       courses: string
+      tutoring: string
       faq: string
       contact: string
       bookCall: string
@@ -30,6 +31,7 @@ export function Header({ locale, dict }: HeaderProps) {
   const faqHref = `/${locale}/#faq`
   const contactHref = `/${locale}/#contacto`
   const coursesHref = `/${locale}/cursos`
+  const tutoringHref = `/${locale}/explicacoes`
 
   const switchToPT = "/pt"
   const switchToEN = "/en"
@@ -67,6 +69,10 @@ export function Header({ locale, dict }: HeaderProps) {
 
           <Link className="hover:text-neutral-950" href={coursesHref}>
             {dict.nav.courses}
+          </Link>
+
+          <Link className="hover:text-neutral-950" href={tutoringHref}>
+            {dict.nav.tutoring}
           </Link>
 
           <Link className="hover:text-neutral-950" href={faqHref}>
@@ -156,6 +162,10 @@ export function Header({ locale, dict }: HeaderProps) {
 
             <Link href={coursesHref} onClick={() => setMenuOpen(false)}>
               {dict.nav.courses}
+            </Link>
+
+            <Link href={tutoringHref} onClick={() => setMenuOpen(false)}>
+              {dict.nav.tutoring}
             </Link>
 
             <Link href={faqHref} onClick={() => setMenuOpen(false)}>

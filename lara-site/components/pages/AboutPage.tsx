@@ -84,7 +84,7 @@ export function AboutPage({ locale, dict }: AboutPageProps) {
           </div>
         </div>
 
-        <div className="mt-24 rounded-2xl bg-[#f6f1ea] p-8">
+        <div className="mt-24 rounded-2xl bg-[#F5F5F5] p-8">
           <h3 className="text-xl font-light text-neutral-950">
             {dict.aboutPage.philosophyTitle}
           </h3>

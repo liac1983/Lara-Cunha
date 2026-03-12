@@ -5,6 +5,7 @@ export const pt = {
     process: "Processo",
     portfolio: "Portfolio",
     courses: "Cursos",
+    tutoring: "Explicações",
     faq: "FAQ",
     contact: "Contacto",
     call: "Marcar chamada",
@@ -221,6 +222,91 @@ aboutPage: {
     "Valorizo clareza, detalhe e consistência. Gosto de construir experiências digitais que parecem intencionais em cada decisão — do design à implementação.",
   ctaTitle: "Vamos trabalhar juntas?",
   ctaButton: "Entrar em contacto",
+},
+tutoringPage: {
+  hero: {
+    eyebrow: "Explicações",
+    title: "Explicações de programação com clareza e acompanhamento individual",
+    subtitle:
+      "Sessões online adaptadas ao teu nível, objetivos e ritmo — com foco em bases sólidas, prática e compreensão real.",
+  },
+  topics: {
+    title: "O que ensino",
+    items: [
+      "Linguagem C",
+      "Python",
+      "Java",
+      "Fundamentos de programação",
+      "Algoritmos e lógica",
+      "Estruturas de dados básicas",
+      "Preparação para testes e exames",
+    ],
+  },
+  format: {
+    title: "Como funciona",
+    text:
+      "As sessões são online, individuais e adaptadas às tuas dúvidas, objetivos e ritmo. Podemos trabalhar teoria, exercícios, preparação para avaliações ou revisão de matéria.",
+  },
+  audience: {
+    title: "Para quem é",
+    items: [
+      "Alunos do secundário",
+      "Alunos do ensino superior",
+      "Quem está a começar em programação",
+      "Quem quer consolidar bases",
+    ],
+  },
+  form: {
+    title: "Pedir marcação",
+    subtitle:
+      "Preenche o formulário e entrarei em contacto contigo para combinar a sessão.",
+  },
+},
+
+tutoringForm: {
+  fields: {
+    name: "Nome",
+    email: "Email",
+    phone: "Telefone",
+    topic: "Linguagem ou tema",
+    level: "Nível",
+    goal: "Objetivo",
+    availability: "Disponibilidade",
+    message: "Mensagem",
+  },
+  placeholders: {
+    name: "O teu nome",
+    email: "email@exemplo.com",
+    phone: "Ex: 912 345 678",
+    availability: "Ex: terça e quinta à tarde, sábado de manhã",
+    message: "Conta-me o contexto, a cadeira, as tuas dificuldades ou o que pretendes trabalhar.",
+  },
+  selectPlaceholder: "Selecione…",
+  options: {
+    topic: {
+      algorithms: "Algoritmos / lógica",
+      other: "Outra",
+    },
+    level: {
+      secondary: "Secundário",
+      university: "Universidade",
+      beginner: "Iniciante",
+      intermediate: "Intermédio",
+    },
+    goal: {
+      followCourse: "Acompanhar a cadeira",
+      examPrep: "Preparar teste/exame",
+      reviewBasics: "Rever bases",
+      solveExercises: "Resolver exercícios",
+      other: "Outro",
+    },
+  },
+  button: "PEDIR MARCAÇÃO",
+  sending: "A ENVIAR...",
+  success: "Pedido enviado com sucesso. Entrarei em contacto em breve.",
+  error: "Ocorreu um erro ao enviar. Tenta novamente.",
+  responsePrefix: "Resposta em até",
+  responseTime: "24h úteis",
 },
 
 }
