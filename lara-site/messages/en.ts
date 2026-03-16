@@ -167,7 +167,7 @@ contact: {
   button: "SEND REQUEST",
   sending: "SENDING...",
   success: "Request sent successfully. I will reply soon.",
-  error: "Error sending request. Please try again.",
+  
   responsePrefix: "Response within",
   responseTime: "24 business hours",
 },
@@ -271,6 +271,10 @@ tutoringForm: {
     topic: "Language or topic",
     level: "Level",
     goal: "Goal",
+    date: "Date",
+    time: "Time",
+    selecttime: "Seleciona uma hora",
+    duration: "Duration",
     availability: "Availability",
     message: "Message",
   },
@@ -304,7 +308,7 @@ tutoringForm: {
   button: "REQUEST A SESSION",
   sending: "SENDING...",
   success: "Request sent successfully. I will get back to you soon.",
-  error: "There was an error sending your request. Please try again.",
+  
   responsePrefix: "Response within",
   responseTime: "24 business hours",
 },

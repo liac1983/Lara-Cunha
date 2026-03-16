@@ -1,6 +1,4 @@
-type FooterProps = {
-  dict: any
-}
+type FooterProps = { dict: any }
 
 export function Footer({ dict }: FooterProps) {
   return (
@@ -10,9 +8,39 @@ export function Footer({ dict }: FooterProps) {
           <p className="text-sm tracking-[0.22em]">LARA CUNHA</p>
 
           <div className="flex gap-8 text-xs tracking-[0.18em] text-white/80">
-            <a className="hover:text-white" href="mailto:laracunha@email.com">EMAIL</a>
-            <a className="hover:text-white" href="#" target="_blank" rel="noreferrer">LINKEDIN</a>
-            <a className="hover:text-white" href="#" target="_blank" rel="noreferrer">INSTAGRAM</a>
+            <a
+              className="hover:text-white"
+              href="mailto:laracunha@email.com"
+            >
+              EMAIL
+            </a>
+
+            <a
+              className="hover:text-white"
+              href="https://linkedin.com/in/lara-cunha-1a2848229/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              LINKEDIN
+            </a>
+
+            <a
+              className="hover:text-white"
+              href="https://www.instagram.com/larainesalves/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              INSTAGRAM
+            </a>
+
+            <a
+              className="hover:text-white"
+              href="https://github.com/liac1983"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GITHUB
+            </a>
           </div>
         </div>
 

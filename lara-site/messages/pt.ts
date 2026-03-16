@@ -168,7 +168,7 @@ contact: {
   button: "ENVIAR PEDIDO",
   sending: "A ENVIAR...",
   success: "Pedido enviado com sucesso. Vou responder-te em breve.",
-  error: "Erro ao enviar. Tenta novamente.",
+  
   responsePrefix: "Resposta em até",
   responseTime: "24h úteis",
 },
@@ -271,6 +271,10 @@ tutoringForm: {
     topic: "Linguagem ou tema",
     level: "Nível",
     goal: "Objetivo",
+    date: "Data",
+    time: "Hora",
+    selecttime: "Select a time",
+    duration: "Duração",
     availability: "Disponibilidade",
     message: "Mensagem",
   },
@@ -304,7 +308,7 @@ tutoringForm: {
   button: "PEDIR MARCAÇÃO",
   sending: "A ENVIAR...",
   success: "Pedido enviado com sucesso. Entrarei em contacto em breve.",
-  error: "Ocorreu um erro ao enviar. Tenta novamente.",
+  
   responsePrefix: "Resposta em até",
   responseTime: "24h úteis",
 },

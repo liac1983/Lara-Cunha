@@ -229,7 +229,7 @@ export function Contact({ dict }: ContactProps) {
 
         {status === "error" && (
           <p className="mx-auto max-w-xl text-center text-sm text-red-600">
-            ❌ {errorMsg}
+            {errorMsg}
           </p>
         )}
       </form>

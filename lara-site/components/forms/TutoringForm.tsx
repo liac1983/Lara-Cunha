@@ -193,16 +193,57 @@ export function TutoringForm({ dict }: TutoringFormProps) {
         </div>
       </div>
 
-      <div>
-        <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
-          {dict.tutoringForm.fields.availability}
-        </label>
-        <input
-          name="availability"
-          required
-          className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none placeholder:text-neutral-400"
-          placeholder={dict.tutoringForm.placeholders.availability}
-        />
+      <div className="grid gap-6 md:grid-cols-3">
+        <div>
+            <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
+            {dict.tutoringForm.fields.date}
+            </label>
+            <select
+            name="selectedDate"
+            required
+            defaultValue=""
+            className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none"
+            >
+            <option value="" disabled>
+                Seleciona uma data
+            </option>
+            <option value="2026-03-17">Terça, 17 Março</option>
+            <option value="2026-03-19">Quinta, 19 Março</option>
+            </select>
+        </div>
+
+        <div>
+            <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
+            {dict.tutoringForm.fields.time}
+            </label>
+            <select
+            name="selectedTime"
+            required
+            defaultValue=""
+            className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none"
+            >
+            <option value="" disabled>
+                {dict.tutoringForm.fields.selecttime}
+            </option>
+            <option value="14:00">14:00</option>
+            <option value="16:00">16:00</option>
+            </select>
+        </div>
+
+        <div>
+            <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
+            {dict.tutoringForm.fields.duration}
+            </label>
+            <select
+            name="duration"
+            required
+            defaultValue="60"
+            className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none"
+            >
+            <option value="60">60 min</option>
+            <option value="90">90 min</option>
+            </select>
+        </div>
       </div>
 
       <div>
@@ -241,7 +282,7 @@ export function TutoringForm({ dict }: TutoringFormProps) {
 
       {status === "error" && (
         <p className="mx-auto max-w-xl text-center text-sm text-red-600">
-          ❌ {errorMsg}
+          {errorMsg}
         </p>
       )}
     </form>
