@@ -1,4 +1,5 @@
 import { Section } from "@/components/Section"
+import { TutoringForm } from "@/components/forms/TutoringForm"
 
 type TutoringPageProps = {
   locale: string
@@ -14,7 +15,6 @@ export function TutoringPage({ dict }: TutoringPageProps) {
         title={dict.tutoringPage.hero.title}
         subtitle={dict.tutoringPage.hero.subtitle}
       >
-        {/* O QUE ENSINAS */}
         <div className="mt-20">
           <div className="max-w-3xl">
             <p className="text-xs tracking-[0.25em] text-neutral-500">
@@ -36,7 +36,6 @@ export function TutoringPage({ dict }: TutoringPageProps) {
           </div>
         </div>
 
-        {/* COMO FUNCIONA */}
         <div className="mt-24 rounded-2xl bg-[#F5F5F5] p-8 sm:p-10">
           <p className="text-xs tracking-[0.25em] text-neutral-500">
             {dict.tutoringPage.format.title}
@@ -47,7 +46,6 @@ export function TutoringPage({ dict }: TutoringPageProps) {
           </p>
         </div>
 
-        {/* PARA QUEM É */}
         <div className="mt-24">
           <div className="max-w-3xl">
             <p className="text-xs tracking-[0.25em] text-neutral-500">
@@ -68,6 +66,8 @@ export function TutoringPage({ dict }: TutoringPageProps) {
             ))}
           </div>
         </div>
+
+        
       </Section>
     </main>
   )

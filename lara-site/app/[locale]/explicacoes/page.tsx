@@ -29,7 +29,11 @@ export default async function Page({
           </p>
         </div>
 
-        <TutoringForm dict={dict} />
+
+        <div className="mt-24">
+          <TutoringForm dict={dict} />
+        </div>
+
       </div>
     </>
   )

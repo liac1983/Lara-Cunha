@@ -12,28 +12,43 @@ export function TutoringForm({ dict }: TutoringFormProps) {
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState<Status>("idle")
   const [errorMsg, setErrorMsg] = useState("")
+  const [successData, setSuccessData] = useState<null | {
+    startTime: string
+    endTime: string
+    meetLink?: string | null
+  }>(null)
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
     setStatus("idle")
     setErrorMsg("")
+    setSuccessData(null)
 
     const form = new FormData(e.currentTarget)
 
+    const selectedDate = String(form.get("selectedDate") || "")
+    const selectedTime = String(form.get("selectedTime") || "")
+    const duration = Number(form.get("duration") || 60)
+
+    const start = new Date(`${selectedDate}T${selectedTime}:00`)
+    const end = new Date(start.getTime() + duration * 60 * 1000)
+
     const payload = {
-      name: form.get("name"),
-      email: form.get("email"),
-      phone: form.get("phone"),
-      topic: form.get("topic"),
-      level: form.get("level"),
-      goal: form.get("goal"),
-      availability: form.get("availability"),
-      message: form.get("message"),
+      studentName: String(form.get("name") || ""),
+      studentEmail: String(form.get("email") || ""),
+      phone: String(form.get("phone") || ""),
+      topic: String(form.get("topic") || ""),
+      level: String(form.get("level") || ""),
+      goal: String(form.get("goal") || ""),
+      notes: String(form.get("message") || ""),
+      startTime: start.toISOString(),
+      endTime: end.toISOString(),
+      timezone: "Europe/Lisbon",
     }
 
     try {
-      const res = await fetch("/api/tutoring", {
+      const res = await fetch("/api/bookings/create", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -50,6 +65,11 @@ export function TutoringForm({ dict }: TutoringFormProps) {
 
       setStatus("ok")
       setErrorMsg("")
+      setSuccessData({
+        startTime: data.startTime,
+        endTime: data.endTime,
+        meetLink: data.meetLink,
+      })
       setLoading(false)
       e.currentTarget.reset()
     } catch {
@@ -195,54 +215,54 @@ export function TutoringForm({ dict }: TutoringFormProps) {
 
       <div className="grid gap-6 md:grid-cols-3">
         <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
+          <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
             {dict.tutoringForm.fields.date}
-            </label>
-            <select
+          </label>
+          <select
             name="selectedDate"
             required
             defaultValue=""
             className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none"
-            >
+          >
             <option value="" disabled>
-                Seleciona uma data
+              Seleciona uma data
             </option>
             <option value="2026-03-17">Terça, 17 Março</option>
             <option value="2026-03-19">Quinta, 19 Março</option>
-            </select>
+          </select>
         </div>
 
         <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
+          <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
             {dict.tutoringForm.fields.time}
-            </label>
-            <select
+          </label>
+          <select
             name="selectedTime"
             required
             defaultValue=""
             className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none"
-            >
+          >
             <option value="" disabled>
-                {dict.tutoringForm.fields.selecttime}
+              {dict.tutoringForm.fields.selecttime}
             </option>
             <option value="14:00">14:00</option>
             <option value="16:00">16:00</option>
-            </select>
+          </select>
         </div>
 
         <div>
-            <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
+          <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
             {dict.tutoringForm.fields.duration}
-            </label>
-            <select
+          </label>
+          <select
             name="duration"
             required
             defaultValue="60"
             className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none"
-            >
+          >
             <option value="60">60 min</option>
             <option value="90">90 min</option>
-            </select>
+          </select>
         </div>
       </div>
 
@@ -274,10 +294,51 @@ export function TutoringForm({ dict }: TutoringFormProps) {
         </span>.
       </p>
 
-      {status === "ok" && (
-        <p className="mx-auto max-w-xl text-center text-sm text-neutral-700">
-          {dict.tutoringForm.success}
-        </p>
+      {status === "ok" && successData && (
+        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-6 text-neutral-800">
+          <h2 className="text-xl font-semibold text-emerald-900">
+            Sessão marcada com sucesso
+          </h2>
+
+          <p className="mt-2 text-sm text-emerald-800">
+            Receberás um email de confirmação em breve.
+          </p>
+
+          <div className="mt-4 space-y-2 text-sm">
+            <p>
+              <strong>Data:</strong>{" "}
+              {new Date(successData.startTime).toLocaleString("pt-PT", {
+                timeZone: "Europe/Lisbon",
+                dateStyle: "full",
+                timeStyle: "short",
+              })}
+            </p>
+
+            <p>
+              <strong>Duração:</strong>{" "}
+              {Math.round(
+                (new Date(successData.endTime).getTime() -
+                  new Date(successData.startTime).getTime()) /
+                  60000
+              )}{" "}
+              min
+            </p>
+
+            {successData.meetLink && (
+              <p>
+                <strong>Google Meet:</strong>{" "}
+                <a
+                  href={successData.meetLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="underline underline-offset-4"
+                >
+                  Entrar na sessão
+                </a>
+              </p>
+            )}
+          </div>
+        </div>
       )}
 
       {status === "error" && (
