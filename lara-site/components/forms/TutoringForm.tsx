@@ -1,6 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useMemo, useState } from "react"
+import { DayPicker } from "react-day-picker"
+import { format } from "date-fns"
+import { pt } from "date-fns/locale"
+import "react-day-picker/dist/style.css"
 
 type Status = "idle" | "ok" | "error"
 
@@ -8,15 +12,36 @@ type TutoringFormProps = {
   dict: any
 }
 
+const AVAILABLE_SLOTS: Record<string, string[]> = {
+  "2026-03-17": ["14:00", "16:00"],
+  "2026-03-19": ["10:00", "11:00", "16:00"],
+  "2026-03-24": ["14:00", "15:00", "17:00"],
+  "2026-03-26": ["11:00", "16:00"],
+}
+
+function formatDateKey(date: Date) {
+  return format(date, "yyyy-MM-dd")
+}
+
 export function TutoringForm({ dict }: TutoringFormProps) {
   const [loading, setLoading] = useState(false)
   const [status, setStatus] = useState<Status>("idle")
   const [errorMsg, setErrorMsg] = useState("")
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
+  const [selectedTime, setSelectedTime] = useState("")
   const [successData, setSuccessData] = useState<null | {
     startTime: string
     endTime: string
     meetLink?: string | null
   }>(null)
+
+  const enabledDates = useMemo(
+    () => Object.keys(AVAILABLE_SLOTS).map((date) => new Date(`${date}T12:00:00`)),
+    []
+  )
+
+  const selectedDateKey = selectedDate ? formatDateKey(selectedDate) : ""
+  const availableTimes = selectedDateKey ? AVAILABLE_SLOTS[selectedDateKey] ?? [] : []
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -25,14 +50,25 @@ export function TutoringForm({ dict }: TutoringFormProps) {
     setErrorMsg("")
     setSuccessData(null)
 
+    if (!selectedDate) {
+      setStatus("error")
+      setErrorMsg("Seleciona uma data.")
+      setLoading(false)
+      return
+    }
+
+    if (!selectedTime) {
+      setStatus("error")
+      setErrorMsg("Seleciona um horário.")
+      setLoading(false)
+      return
+    }
+
     const form = new FormData(e.currentTarget)
 
-    const selectedDate = String(form.get("selectedDate") || "")
-    const selectedTime = String(form.get("selectedTime") || "")
-    const duration = Number(form.get("duration") || 60)
-
-    const start = new Date(`${selectedDate}T${selectedTime}:00`)
-    const end = new Date(start.getTime() + duration * 60 * 1000)
+    const dateKey = formatDateKey(selectedDate)
+    const start = new Date(`${dateKey}T${selectedTime}:00`)
+    const end = new Date(start.getTime() + 60 * 60 * 1000)
 
     const payload = {
       studentName: String(form.get("name") || ""),
@@ -70,8 +106,11 @@ export function TutoringForm({ dict }: TutoringFormProps) {
         endTime: data.endTime,
         meetLink: data.meetLink,
       })
-      setLoading(false)
+
       e.currentTarget.reset()
+      setSelectedDate(undefined)
+      setSelectedTime("")
+      setLoading(false)
     } catch {
       setStatus("error")
       setErrorMsg(dict.tutoringForm.error)
@@ -213,56 +252,99 @@ export function TutoringForm({ dict }: TutoringFormProps) {
         </div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
         <div>
           <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
-            {dict.tutoringForm.fields.date}
+            Data
           </label>
-          <select
-            name="selectedDate"
-            required
-            defaultValue=""
-            className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none"
-          >
-            <option value="" disabled>
-              Seleciona uma data
-            </option>
-            <option value="2026-03-17">Terça, 17 Março</option>
-            <option value="2026-03-19">Quinta, 19 Março</option>
-          </select>
+
+          <div className="mt-4 rounded-2xl border border-black/10 p-4">
+            <DayPicker
+              mode="single"
+              selected={selectedDate}
+              onSelect={(date) => {
+                setSelectedDate(date)
+                setSelectedTime("")
+              }}
+              locale={pt}
+              showOutsideDays
+              disabled={(date) => {
+                const key = formatDateKey(date)
+                return !AVAILABLE_SLOTS[key]
+              }}
+              modifiers={{
+                available: enabledDates,
+              }}
+              modifiersClassNames={{
+                selected: "bg-neutral-900 text-white rounded-full",
+                today: "font-bold text-neutral-950",
+                available: "text-neutral-950",
+              }}
+            />
+          </div>
+
+          {selectedDate && (
+            <p className="mt-3 text-sm text-neutral-600">
+              Dia selecionado:{" "}
+              <span className="font-medium text-neutral-900">
+                {selectedDate.toLocaleDateString("pt-PT", {
+                  weekday: "long",
+                  day: "numeric",
+                  month: "long",
+                })}
+              </span>
+            </p>
+          )}
         </div>
 
         <div>
           <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
-            {dict.tutoringForm.fields.time}
+            Horário
           </label>
-          <select
-            name="selectedTime"
-            required
-            defaultValue=""
-            className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none"
-          >
-            <option value="" disabled>
-              {dict.tutoringForm.fields.selecttime}
-            </option>
-            <option value="14:00">14:00</option>
-            <option value="16:00">16:00</option>
-          </select>
-        </div>
 
-        <div>
-          <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
-            {dict.tutoringForm.fields.duration}
-          </label>
-          <select
-            name="duration"
-            required
-            defaultValue="60"
-            className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none"
-          >
-            <option value="60">60 min</option>
-            <option value="90">90 min</option>
-          </select>
+          <div className="mt-4 rounded-2xl border border-black/10 p-4">
+            {!selectedDate && (
+              <p className="text-sm text-neutral-500">
+                Primeiro escolhe um dia no calendário.
+              </p>
+            )}
+
+            {selectedDate && availableTimes.length === 0 && (
+              <p className="text-sm text-neutral-500">
+                Não há horários disponíveis para esse dia.
+              </p>
+            )}
+
+            {selectedDate && availableTimes.length > 0 && (
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                {availableTimes.map((time) => {
+                  const isSelected = selectedTime === time
+
+                  return (
+                    <button
+                      key={time}
+                      type="button"
+                      onClick={() => setSelectedTime(time)}
+                      className={`rounded-full border px-4 py-3 text-sm transition ${
+                        isSelected
+                          ? "border-neutral-900 bg-neutral-900 text-white"
+                          : "border-black/10 bg-white text-neutral-900 hover:border-neutral-900"
+                      }`}
+                    >
+                      {time}
+                    </button>
+                  )
+                })}
+              </div>
+            )}
+          </div>
+
+          <input type="hidden" name="selectedDate" value={selectedDateKey} />
+          <input type="hidden" name="selectedTime" value={selectedTime} />
+
+          <p className="mt-3 text-sm text-neutral-600">
+            Todas as sessões têm duração fixa de 1 hora.
+          </p>
         </div>
       </div>
 
@@ -315,13 +397,7 @@ export function TutoringForm({ dict }: TutoringFormProps) {
             </p>
 
             <p>
-              <strong>Duração:</strong>{" "}
-              {Math.round(
-                (new Date(successData.endTime).getTime() -
-                  new Date(successData.startTime).getTime()) /
-                  60000
-              )}{" "}
-              min
+              <strong>Duração:</strong> 60 min
             </p>
 
             {successData.meetLink && (
