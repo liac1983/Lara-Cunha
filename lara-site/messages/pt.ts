@@ -9,6 +9,7 @@ export const pt = {
     faq: "FAQ",
     contact: "Contacto",
     login: "Entrar",
+    logout: "Sair",
     minhasexplicacoes: "As minhas explicações",
     call: "Marcar chamada",
   },

@@ -10,6 +10,7 @@ export const en = {
     contact: "Contact",
     call: "Book a call",
     login: "Enter",
+    logout: "Log out",
     minhasexplicacoes: "My Tutorings",
   },
   hero: {
