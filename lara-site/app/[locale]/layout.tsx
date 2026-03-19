@@ -10,7 +10,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  const dict = getDictionary(locale)
+  const dict = await getDictionary(locale)
 
   return (
     <div className="min-h-screen bg-white text-neutral-950">

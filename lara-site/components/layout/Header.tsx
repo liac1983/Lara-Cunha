@@ -16,6 +16,8 @@ type HeaderProps = {
       faq: string
       contact: string
       bookCall: string
+      login: string
+      minhasexplicacoes: string
     }
   }
 }
@@ -32,6 +34,8 @@ export function Header({ locale, dict }: HeaderProps) {
   const contactHref = `/${locale}/#contacto`
   const coursesHref = `/${locale}/cursos`
   const tutoringHref = `/${locale}/explicacoes`
+  const authlogin = `/${locale}/auth/login`
+  const minhasexplicacoes = `/${locale}/minhas-explicacoes`
 
   const switchToPT = "/pt"
   const switchToEN = "/en"
@@ -103,6 +107,14 @@ export function Header({ locale, dict }: HeaderProps) {
               className={locale === "en" ? "text-neutral-950" : "text-neutral-400"}
             >
               EN
+            </Link>
+
+            <Link href={authlogin} className="text-sm">
+              {dict.nav.login}
+            </Link>
+
+            <Link href= {minhasexplicacoes} className="text-sm">
+              {dict.nav.minhasexplicacoes}
             </Link>
           </div>
 
@@ -192,6 +204,14 @@ export function Header({ locale, dict }: HeaderProps) {
                 onClick={() => setMenuOpen(false)}
               >
                 EN
+              </Link>
+
+              <Link href={authlogin} className="text-sm">
+                {dict.nav.login}
+              </Link>
+
+              <Link href={minhasexplicacoes} className="text-sm">
+                {dict.nav.minhasexplicacoes}
               </Link>
             </div>
 

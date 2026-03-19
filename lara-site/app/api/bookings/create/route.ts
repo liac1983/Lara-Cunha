@@ -19,7 +19,7 @@ type BookingPayload = {
 const DEFAULT_TIMEZONE = "Europe/Lisbon";
 
 function getSupabaseAdmin() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseUrl = process.env.SUPABASE_URL;
   const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
   if (!supabaseUrl || !supabaseServiceRoleKey) {
@@ -258,12 +258,9 @@ async function sendBookingEmails(params: {
   meetLink: string | null;
   eventLink: string | null;
 }) {
-  // Troca esta função pelo teu sistema real de email:
-  // Resend, Nodemailer, SendGrid, etc.
-
   console.log("EMAIL PARA TI");
   console.log({
-    to: process.env.BOOKING_NOTIFICATION_EMAIL,
+    to: process.env.OWNER_EMAIL,
     subject: `Nova marcação — ${params.studentName}`,
     body: `
 Nome: ${params.studentName}

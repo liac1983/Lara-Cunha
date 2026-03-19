@@ -9,6 +9,8 @@ export const en = {
     faq: "FAQ",
     contact: "Contact",
     call: "Book a call",
+    login: "Enter",
+    minhasexplicacoes: "My Tutorings",
   },
   hero: {
     title: "Websites with brand identity",
@@ -311,6 +313,41 @@ tutoringForm: {
   
   responsePrefix: "Response within",
   responseTime: "24 business hours",
+},
+
+loginPage: {
+  title: "Log in",
+  subtitle: "Enter your email to receive a sign-in link.",
+  emailLabel: "Email",
+  emailPlaceholder: "ana@email.com",
+  submit: "Get sign-in link",
+  submitting: "Sending...",
+  successMessage: "We sent a sign-in link to your email.",
+  rateLimitError:
+    "You requested too many links in a short time. Please wait a few minutes and try again.",
+},
+
+myLessonsPage: {
+  title: "My tutoring sessions",
+  logout: "Log out",
+  loadingError: "Error loading bookings.",
+
+  upcomingTitle: "Upcoming sessions",
+  pastTitle: "Past sessions",
+  cancelledTitle: "Cancelled sessions",
+
+  noUpcoming: "You have no upcoming sessions booked.",
+  noPast: "You don't have any past sessions yet.",
+  noCancelled: "You have no cancelled sessions.",
+
+  defaultTopic: "Tutoring session",
+  statusLabel: "Status",
+  joinMeet: "Join Google Meet",
+  reschedule: "Reschedule",
+  cancel: "Cancel",
+
+  reschedulePageTitle: "Reschedule session",
+  currentLabel: "Current",
 },
 
 }

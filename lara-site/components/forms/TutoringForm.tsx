@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { DayPicker } from "react-day-picker"
 import { format } from "date-fns"
 import { pt } from "date-fns/locale"
@@ -12,12 +12,7 @@ type TutoringFormProps = {
   dict: any
 }
 
-const AVAILABLE_SLOTS: Record<string, string[]> = {
-  "2026-03-17": ["14:00", "16:00"],
-  "2026-03-19": ["10:00", "11:00", "16:00"],
-  "2026-03-24": ["14:00", "15:00", "17:00"],
-  "2026-03-26": ["11:00", "16:00"],
-}
+type SlotsByDate = Record<string, string[]>
 
 function formatDateKey(date: Date) {
   return format(date, "yyyy-MM-dd")
@@ -25,8 +20,11 @@ function formatDateKey(date: Date) {
 
 export function TutoringForm({ dict }: TutoringFormProps) {
   const [loading, setLoading] = useState(false)
+  const [loadingAvailability, setLoadingAvailability] = useState(true)
   const [status, setStatus] = useState<Status>("idle")
   const [errorMsg, setErrorMsg] = useState("")
+  const [availabilityError, setAvailabilityError] = useState("")
+  const [slotsByDate, setSlotsByDate] = useState<SlotsByDate>({})
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const [selectedTime, setSelectedTime] = useState("")
   const [successData, setSuccessData] = useState<null | {
@@ -35,13 +33,43 @@ export function TutoringForm({ dict }: TutoringFormProps) {
     meetLink?: string | null
   }>(null)
 
+  useEffect(() => {
+    async function loadAvailability() {
+      try {
+        setLoadingAvailability(true)
+        setAvailabilityError("")
+
+        const res = await fetch("/api/availability", { cache: "no-store" })
+        const data = await res.json()
+
+        if (!res.ok) {
+          setAvailabilityError(data?.error ?? "Erro ao carregar disponibilidade.")
+          setLoadingAvailability(false)
+          return
+        }
+
+        setSlotsByDate(data.slotsByDate ?? {})
+        setLoadingAvailability(false)
+      } catch {
+        setAvailabilityError("Erro ao carregar disponibilidade.")
+        setLoadingAvailability(false)
+      }
+    }
+
+    loadAvailability()
+  }, [])
+
   const enabledDates = useMemo(
-    () => Object.keys(AVAILABLE_SLOTS).map((date) => new Date(`${date}T12:00:00`)),
-    []
+    () =>
+      Object.keys(slotsByDate).map((date) => {
+        const [year, month, day] = date.split("-").map(Number)
+        return new Date(year, month - 1, day, 12, 0, 0)
+      }),
+    [slotsByDate]
   )
 
   const selectedDateKey = selectedDate ? formatDateKey(selectedDate) : ""
-  const availableTimes = selectedDateKey ? AVAILABLE_SLOTS[selectedDateKey] ?? [] : []
+  const availableTimes = selectedDateKey ? slotsByDate[selectedDateKey] ?? [] : []
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -105,6 +133,20 @@ export function TutoringForm({ dict }: TutoringFormProps) {
         startTime: data.startTime,
         endTime: data.endTime,
         meetLink: data.meetLink,
+      })
+
+      setSlotsByDate((prev) => {
+        const updated = { ...prev }
+        const currentTimes = updated[dateKey] ?? []
+        const nextTimes = currentTimes.filter((time) => time !== selectedTime)
+
+        if (nextTimes.length > 0) {
+          updated[dateKey] = nextTimes
+        } else {
+          delete updated[dateKey]
+        }
+
+        return updated
       })
 
       e.currentTarget.reset()
@@ -259,28 +301,34 @@ export function TutoringForm({ dict }: TutoringFormProps) {
           </label>
 
           <div className="mt-4 rounded-2xl border border-black/10 p-4">
-            <DayPicker
-              mode="single"
-              selected={selectedDate}
-              onSelect={(date) => {
-                setSelectedDate(date)
-                setSelectedTime("")
-              }}
-              locale={pt}
-              showOutsideDays
-              disabled={(date) => {
-                const key = formatDateKey(date)
-                return !AVAILABLE_SLOTS[key]
-              }}
-              modifiers={{
-                available: enabledDates,
-              }}
-              modifiersClassNames={{
-                selected: "bg-neutral-900 text-white rounded-full",
-                today: "font-bold text-neutral-950",
-                available: "text-neutral-950",
-              }}
-            />
+            {loadingAvailability ? (
+              <p className="text-sm text-neutral-500">A carregar disponibilidade...</p>
+            ) : availabilityError ? (
+              <p className="text-sm text-red-600">{availabilityError}</p>
+            ) : (
+              <DayPicker
+                mode="single"
+                selected={selectedDate}
+                onSelect={(date) => {
+                  setSelectedDate(date)
+                  setSelectedTime("")
+                }}
+                locale={pt}
+                showOutsideDays
+                disabled={(date) => {
+                  const key = formatDateKey(date)
+                  return !slotsByDate[key]
+                }}
+                modifiers={{
+                  available: enabledDates,
+                }}
+                modifiersClassNames={{
+                  selected: "bg-neutral-900 text-white rounded-full",
+                  today: "font-bold text-neutral-950",
+                  available: "text-neutral-950",
+                }}
+              />
+            )}
           </div>
 
           {selectedDate && (
@@ -363,7 +411,7 @@ export function TutoringForm({ dict }: TutoringFormProps) {
 
       <button
         type="submit"
-        disabled={loading}
+        disabled={loading || loadingAvailability}
         className="mx-auto mt-4 w-full max-w-sm rounded-full bg-neutral-950 px-10 py-5 text-sm tracking-[0.22em] text-white transition hover:bg-neutral-900 disabled:cursor-not-allowed disabled:opacity-60"
       >
         {loading ? dict.tutoringForm.sending : dict.tutoringForm.button}

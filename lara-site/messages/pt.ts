@@ -8,6 +8,8 @@ export const pt = {
     tutoring: "Explicações",
     faq: "FAQ",
     contact: "Contacto",
+    login: "Entrar",
+    minhasexplicacoes: "As minhas explicações",
     call: "Marcar chamada",
   },
   hero: {
@@ -311,6 +313,41 @@ tutoringForm: {
   
   responsePrefix: "Resposta em até",
   responseTime: "24h úteis",
+},
+
+loginPage: {
+  title: "Entrar",
+  subtitle: "Introduz o teu email para receberes um link de acesso.",
+  emailLabel: "Email",
+  emailPlaceholder: "ana@email.com",
+  submit: "Receber link de acesso",
+  submitting: "A enviar...",
+  successMessage: "Enviámos um link de acesso para o teu email.",
+  rateLimitError:
+    "Pediste demasiados links em pouco tempo. Espera alguns minutos e tenta novamente.",
+},
+
+myLessonsPage: {
+  title: "As minhas explicações",
+  logout: "Sair",
+  loadingError: "Erro ao carregar marcações.",
+
+  upcomingTitle: "Próximas explicações",
+  pastTitle: "Explicações passadas",
+  cancelledTitle: "Explicações canceladas",
+
+  noUpcoming: "Não tens explicações futuras marcadas.",
+  noPast: "Ainda não tens explicações passadas.",
+  noCancelled: "Não tens explicações canceladas.",
+
+  defaultTopic: "Explicação",
+  statusLabel: "Estado",
+  joinMeet: "Entrar no Google Meet",
+  reschedule: "Remarcar",
+  cancel: "Cancelar",
+
+  reschedulePageTitle: "Remarcar explicação",
+  currentLabel: "Atual",
 },
 
 }
