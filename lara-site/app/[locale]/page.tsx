@@ -14,7 +14,7 @@ export default async function Page({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  const dict = getDictionary(locale)
+  const dict = await getDictionary(locale)
   const services = await getServices()
   const projects = await getProjects()
 

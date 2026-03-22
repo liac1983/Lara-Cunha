@@ -130,7 +130,7 @@ faq: {
 
 contact: {
   eyebrow: "Contacto",
-  title: "Vamos trabalhar juntas?",
+  title: "Vamos trabalhar juntos?",
   subtitle:
     "Preenche o formulário. Após enviar, recebes um email para marcar a primeira chamada.",
   fields: {
@@ -223,7 +223,7 @@ aboutPage: {
   philosophyTitle: "Como trabalho",
   philosophyText:
     "Valorizo clareza, detalhe e consistência. Gosto de construir experiências digitais que parecem intencionais em cada decisão — do design à implementação.",
-  ctaTitle: "Vamos trabalhar juntas?",
+  ctaTitle: "Vamos trabalhar juntos?",
   ctaButton: "Entrar em contacto",
 },
 tutoringPage: {

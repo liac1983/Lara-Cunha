@@ -17,6 +17,7 @@ type ProjectItem = {
   goal?: LocalizedText
   result?: LocalizedText
   mainImage?: any
+  mainImageUrl?: string
 }
 
 type PortfolioProps = {
@@ -39,6 +40,17 @@ function getLocalizedValue(value: LocalizedText | undefined, locale: Locale) {
   return value[locale] || value.pt || value.en || ""
 }
 
+function renderTextWithBreaks(text: string) {
+  return text
+    .split(/\r?\n+/)
+    .filter((line) => line.trim() !== "")
+    .map((line, index) => (
+      <p key={index} className={index === 0 ? "" : "mt-2"}>
+        {line}
+      </p>
+    ))
+}
+
 export function Portfolio({ locale, projects, dict }: PortfolioProps) {
   return (
     <Section
@@ -54,56 +66,69 @@ export function Portfolio({ locale, projects, dict }: PortfolioProps) {
           const clientType = getLocalizedValue(project.clientType, locale)
           const goal = getLocalizedValue(project.goal, locale)
           const result = getLocalizedValue(project.result, locale)
+          const imageUrl = project.mainImageUrl ?? null
 
           return (
             <div
               key={project._id}
-              className="rounded-2xl border border-black/10 bg-white p-8 sm:p-10"
+              className="overflow-hidden rounded-2xl border border-black/10 bg-white"
             >
-              <div className="grid gap-8 md:grid-cols-2">
-                <div>
-                  <h3 className="text-2xl font-light text-neutral-950 sm:text-3xl">
-                    {title}
-                  </h3>
-
-                  {shortDescription ? (
-                    <p className="mt-3 text-sm leading-relaxed text-neutral-600">
-                      {shortDescription}
-                    </p>
-                  ) : null}
+              {imageUrl ? (
+                <div className="w-full">
+                  <img
+                    src={imageUrl}
+                    alt={title || "Project image"}
+                    className="h-auto w-full object-cover"
+                  />
                 </div>
+              ) : null}
 
-                <div className="space-y-5">
-                  {clientType ? (
-                    <div>
-                      <p className="text-[11px] tracking-[0.25em] text-neutral-500">
-                        {dict.portfolio.clientLabel}
-                      </p>
-                      <p className="mt-2 text-sm text-neutral-700">{clientType}</p>
-                    </div>
-                  ) : null}
+              <div className="p-8 sm:p-10">
+                <div className="grid gap-8 md:grid-cols-2">
+                  <div>
+                    <h3 className="text-2xl font-light text-neutral-950 sm:text-3xl">
+                      {title}
+                    </h3>
 
-                  {goal ? (
-                    <div>
-                      <p className="text-[11px] tracking-[0.25em] text-neutral-500">
-                        {dict.portfolio.goalLabel}
-                      </p>
-                      <p className="mt-2 text-sm leading-relaxed text-neutral-700">
-                        {goal}
-                      </p>
-                    </div>
-                  ) : null}
+                    {shortDescription ? (
+                      <div className="mt-3 text-sm leading-relaxed text-neutral-600">
+                        {renderTextWithBreaks(shortDescription)}
+                      </div>
+                    ) : null}
+                  </div>
 
-                  {result ? (
-                    <div>
-                      <p className="text-[11px] tracking-[0.25em] text-neutral-500">
-                        {dict.portfolio.resultLabel}
-                      </p>
-                      <p className="mt-2 text-sm leading-relaxed text-neutral-700">
-                        {result}
-                      </p>
-                    </div>
-                  ) : null}
+                  <div className="space-y-5">
+                    {clientType ? (
+                      <div>
+                        <p className="text-[11px] tracking-[0.25em] text-neutral-500">
+                          {dict.portfolio.clientLabel}
+                        </p>
+                        <p className="mt-2 text-sm text-neutral-700">{clientType}</p>
+                      </div>
+                    ) : null}
+
+                    {goal ? (
+                      <div>
+                        <p className="text-[11px] tracking-[0.25em] text-neutral-500">
+                          {dict.portfolio.goalLabel}
+                        </p>
+                        <div className="mt-2 text-sm leading-relaxed text-neutral-700">
+                          {renderTextWithBreaks(goal)}
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {result ? (
+                      <div>
+                        <p className="text-[11px] tracking-[0.25em] text-neutral-500">
+                          {dict.portfolio.resultLabel}
+                        </p>
+                        <div className="mt-2 text-sm leading-relaxed text-neutral-700">
+                          {renderTextWithBreaks(result)}
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             </div>

@@ -49,14 +49,14 @@ export function Header({ locale, dict, isLoggedIn }: HeaderProps) {
     "inline-flex items-center rounded-full border border-black/10 px-5 py-3 text-sm tracking-[0.12em] text-neutral-900 transition hover:border-neutral-900"
 
   const pillPrimaryMobileClass =
-    "mx-auto inline-flex w-full max-w-xs items-center justify-center rounded-full bg-neutral-950 px-6 py-4 text-center text-sm tracking-[0.12em] text-white transition hover:bg-neutral-800"
+    "inline-flex items-center justify-center rounded-full bg-neutral-950 px-5 py-3 text-sm tracking-[0.08em] text-white transition hover:bg-neutral-800"
 
   const pillSecondaryMobileClass =
-    "mx-auto inline-flex w-full max-w-xs items-center justify-center rounded-full border border-black/10 px-6 py-4 text-center text-sm tracking-[0.12em] text-neutral-900 transition hover:border-neutral-900"
-
+    "inline-flex items-center justify-center rounded-full border border-black/10 px-5 py-3 text-sm tracking-[0.08em] text-neutral-900 transition hover:border-neutral-900"
+    
   return (
     <header className="sticky top-0 z-50 border-b border-black/5 bg-white">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <div className="mx-auto flex max-w-[1600px] items-center justify-between px-10 py-4">
         <Link
           href={homeHref}
           className="text-sm tracking-[0.22em] text-neutral-950"
@@ -217,7 +217,7 @@ export function Header({ locale, dict, isLoggedIn }: HeaderProps) {
               </Link>
             </div>
 
-            <div className="flex flex-col gap-3 pt-2">
+            <div className="flex flex-col items-start gap-3 pt-4">
               {!isLoggedIn ? (
                 <Link
                   href={authLoginHref}

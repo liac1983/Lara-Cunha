@@ -25,7 +25,8 @@ export async function getProjects() {
       clientType,
       goal,
       result,
-      mainImage
+      mainImage,
+      "mainImageUrl": mainImage.asset->url
     }
   `)
 }
@@ -149,4 +150,5 @@ export async function getLesson(courseSlug: string, lessonSlug: string) {
     { courseSlug, lessonSlug }
   )
 }
+
 

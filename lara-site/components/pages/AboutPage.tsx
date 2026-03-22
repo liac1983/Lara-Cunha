@@ -1,13 +1,32 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Section } from "@/components/Section"
+import { Portfolio } from "@/components/sections/Portfolio"
+
+type LocalizedText = {
+  pt?: string
+  en?: string
+}
+
+type ProjectItem = {
+  _id: string
+  order?: number
+  title?: LocalizedText
+  slug: string
+  shortDescription?: LocalizedText
+  clientType?: LocalizedText
+  goal?: LocalizedText
+  result?: LocalizedText
+  mainImage?: any
+}
 
 type AboutPageProps = {
   locale: string
   dict: any
+  projects: ProjectItem[]
 }
 
-export function AboutPage({ locale, dict }: AboutPageProps) {
+export function AboutPage({ locale, dict, projects }: AboutPageProps) {
   const contactHref = `/${locale}/#contacto`
 
   return (
@@ -83,8 +102,16 @@ export function AboutPage({ locale, dict }: AboutPageProps) {
             </p>
           </div>
         </div>
+      </Section>
 
-        <div className="mt-24 rounded-2xl bg-[#F5F5F5] p-8">
+      <Portfolio
+        locale={locale as "pt" | "en"}
+        projects={projects}
+        dict={dict}
+      />
+
+      <section className="mx-auto max-w-6xl px-6 pb-24">
+        <div className="rounded-2xl bg-[#F5F5F5] p-8">
           <h3 className="text-xl font-light text-neutral-950">
             {dict.aboutPage.philosophyTitle}
           </h3>
@@ -107,8 +134,9 @@ export function AboutPage({ locale, dict }: AboutPageProps) {
             </Link>
           </div>
         </div>
-      </Section>
+      </section>
     </main>
   )
 }
+
 
