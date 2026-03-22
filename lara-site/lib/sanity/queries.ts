@@ -152,3 +152,24 @@ export async function getLesson(courseSlug: string, lessonSlug: string) {
 }
 
 
+export async function getProjectBySlug(slug: string) {
+  if (!slug) return null
+
+  return client.fetch(
+    `
+      *[_type == "project" && slug.current == $slug][0]{
+        _id,
+        order,
+        title,
+        "slug": slug.current,
+        shortDescription,
+        clientType,
+        goal,
+        result,
+        mainImage,
+        "mainImageUrl": mainImage.asset->url
+      }
+    `,
+    { slug }
+  )
+}
