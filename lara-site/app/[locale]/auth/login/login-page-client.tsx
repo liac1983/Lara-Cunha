@@ -14,6 +14,7 @@ type Dict = {
     submitting: string
     successMessage: string
     rateLimitError: string
+    googleSubmit?: string
   }
 }
 
@@ -34,6 +35,7 @@ export default function LoginPageClient({
 
   const [email, setEmail] = useState(initialEmail)
   const [loading, setLoading] = useState(false)
+  const [googleLoading, setGoogleLoading] = useState(false)
   const [message, setMessage] = useState("")
   const [error, setError] = useState("")
 
@@ -57,13 +59,30 @@ export default function LoginPageClient({
       } else {
         setError(error.message)
       }
-
       setLoading(false)
       return
     }
 
     setMessage(dict.loginPage.successMessage)
     setLoading(false)
+  }
+
+  async function handleGoogleLogin() {
+    setGoogleLoading(true)
+    setError("")
+    setMessage("")
+
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/${locale}/auth/callback?next=/${locale}/minhas-explicacoes`,
+      },
+    })
+
+    if (error) {
+      setError(error.message)
+      setGoogleLoading(false)
+    }
   }
 
   return (
@@ -74,37 +93,52 @@ export default function LoginPageClient({
         {dict.loginPage.subtitle}
       </p>
 
-      <form
-        onSubmit={handleSubmit}
-        className="mt-8 space-y-6 rounded-2xl border border-black/10 bg-white p-8"
-      >
-        <div>
-          <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
-            {dict.loginPage.emailLabel}
-          </label>
-
-          <input
-            type="email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none"
-            placeholder={dict.loginPage.emailPlaceholder}
-          />
-        </div>
-
+      <div className="mt-8 rounded-2xl border border-black/10 bg-white p-8">
         <button
-          type="submit"
-          disabled={loading}
-          className="rounded-full bg-neutral-950 px-8 py-4 text-sm tracking-[0.2em] text-white disabled:cursor-not-allowed disabled:opacity-60"
+          type="button"
+          onClick={handleGoogleLogin}
+          disabled={googleLoading}
+          className="w-full rounded-full border border-black/10 px-8 py-4 text-sm tracking-[0.12em] text-neutral-950 disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {loading ? dict.loginPage.submitting : dict.loginPage.submit}
+          {googleLoading
+            ? "A redirecionar..."
+            : (dict.loginPage.googleSubmit ?? "Continuar com Google")}
         </button>
 
-        {message && <p className="text-sm text-emerald-700">{message}</p>}
-        {error && <p className="text-sm text-red-600">{error}</p>}
-      </form>
+        <div className="my-6 text-center text-xs uppercase tracking-[0.2em] text-neutral-400">
+          ou
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="text-xs uppercase tracking-[0.2em] text-neutral-500">
+              {dict.loginPage.emailLabel}
+            </label>
+
+            <input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="mt-2 w-full border-b border-black/10 bg-transparent py-3 text-neutral-950 outline-none"
+              placeholder={dict.loginPage.emailPlaceholder}
+            />
+          </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="rounded-full bg-neutral-950 px-8 py-4 text-sm tracking-[0.2em] text-white disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {loading ? dict.loginPage.submitting : dict.loginPage.submit}
+          </button>
+
+          {message && <p className="text-sm text-emerald-700">{message}</p>}
+          {error && <p className="text-sm text-red-600">{error}</p>}
+        </form>
+      </div>
     </main>
   )
 }
+
 

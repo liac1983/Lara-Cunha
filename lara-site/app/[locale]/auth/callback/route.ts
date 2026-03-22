@@ -21,9 +21,14 @@ export async function GET(request: Request, { params }: RouteContext) {
 
   if (code) {
     const supabase = await createClient()
-    await supabase.auth.exchangeCodeForSession(code)
+    const { error } = await supabase.auth.exchangeCodeForSession(code)
+
+    if (error) {
+      return NextResponse.redirect(`${origin}/${locale}/auth/login?error=auth_callback`)
+    }
   }
 
   return NextResponse.redirect(`${origin}${safeNext}`)
 }
+
 
