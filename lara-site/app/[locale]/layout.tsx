@@ -8,6 +8,10 @@ type Props = {
   params: Promise<{ locale: string }>
 }
 
+export function generateStaticParams() {
+  return [{ locale: "pt" }, { locale: "en" }]
+}
+
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params
   const dict = await getDictionary(locale)
