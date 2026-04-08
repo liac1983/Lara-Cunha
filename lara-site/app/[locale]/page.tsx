@@ -21,7 +21,7 @@ export default async function Page({
   return (
     <main>
       <Hero dict={dict} locale={locale} />
-      <About dict={dict} />
+      <About dict={dict} locale={locale} />
       <Services locale={locale as "pt" | "en"} services={services} dict={dict} />
       <Process dict={dict} />
       <Portfolio

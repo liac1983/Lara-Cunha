@@ -70,8 +70,9 @@ export const service = defineType({
       name: "features",
       title: "Features",
       type: "array",
+
       of: [
-        defineType({
+        {
           name: "localizedFeature",
           title: "Localized Feature",
           type: "object",
@@ -87,8 +88,9 @@ export const service = defineType({
               type: "string",
             }),
           ],
-        }),
+        },
       ],
+
     }),
   ],
 })

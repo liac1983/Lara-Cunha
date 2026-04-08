@@ -8,7 +8,7 @@ export const en = {
     tutoring: "Tutoring",
     faq: "FAQ",
     contact: "Contact",
-    call: "Book a call",
+    bookCall: "Book a call",
     login: "Enter",
     logout: "Log out",
     minhasexplicacoes: "My Tutorings",

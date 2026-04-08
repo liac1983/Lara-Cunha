@@ -11,7 +11,7 @@ export const pt = {
     login: "Entrar",
     logout: "Sair",
     minhasexplicacoes: "As minhas explicações",
-    call: "Marcar chamada",
+    bookCall: "Marcar chamada",
   },
   hero: {
     title: "Websites com identidade de marca",

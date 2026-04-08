@@ -88,8 +88,9 @@ export const lesson = defineType({
       name: "exercises",
       title: "Exercises",
       type: "array",
+
       of: [
-        defineType({
+        {
           name: "localizedExercise",
           title: "Localized Exercise",
           type: "object",
@@ -127,16 +128,19 @@ export const lesson = defineType({
               ],
             }),
           ],
-        }),
+        },
       ],
+
+
     }),
 
     defineField({
       name: "homework",
       title: "Homework",
       type: "array",
+
       of: [
-        defineType({
+        {
           name: "localizedHomework",
           title: "Localized Homework",
           type: "object",
@@ -174,16 +178,18 @@ export const lesson = defineType({
               ],
             }),
           ],
-        }),
+        },
       ],
+
     }),
 
     defineField({
       name: "resources",
       title: "Resources",
       type: "array",
+
       of: [
-        defineType({
+        {
           name: "resourceItem",
           title: "Resource",
           type: "object",
@@ -208,8 +214,9 @@ export const lesson = defineType({
               type: "string",
             }),
           ],
-        }),
+        },
       ],
+
     }),
   ],
 })
