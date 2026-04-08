@@ -71,7 +71,7 @@ export function AboutPage({ locale, dict, projects }: AboutPageProps) {
               {dict.aboutPage.highlights.education}
             </p>
             <p className="mt-3 text-sm text-neutral-700">
-              Computer Engineering
+              Informatics and Computing Engineering
             </p>
           </div>
 
@@ -89,7 +89,7 @@ export function AboutPage({ locale, dict, projects }: AboutPageProps) {
               {dict.aboutPage.highlights.technologies}
             </p>
             <p className="mt-3 text-sm text-neutral-700">
-              Html, Css, Php, JavaScript, TypeScript, React, Next.js, Angular
+              Html, Css, Php, JavaScript, WordPress, TypeScript, React, Next.js, Angular, Python, C/C++, Java, SQL, Flutter SDK and Android Studio
             </p>
           </div>
 
@@ -98,11 +98,51 @@ export function AboutPage({ locale, dict, projects }: AboutPageProps) {
               {dict.aboutPage.highlights.languages}
             </p>
             <p className="mt-3 text-sm text-neutral-700">
-              Portuguese, English
+              Portuguese, English and Spanish
             </p>
           </div>
         </div>
       </Section>
+
+              <div className="mx-auto max-w-6xl px-6 mt-24">
+          <div className="max-w-3xl">
+            <p className="text-xs tracking-[0.25em] text-neutral-500">
+              {dict.aboutPage.experienceSection.eyebrow}
+            </p>
+            <h2 className="mt-3 text-3xl font-light text-neutral-950 md:text-4xl">
+              {dict.aboutPage.experienceSection.title}
+            </h2>
+          </div>
+
+          <div className="mt-12 space-y-20">
+            {dict.aboutPage.experienceSection.items.map((item: any, index: number) => (
+              <div
+                key={index}
+                className="grid gap-y-6 border-l border-black/10 pl-6 md:grid-cols-[180px_1fr] md:gap-x-8 md:gap-y-0"
+              >
+                <div>
+                  <p className="text-sm text-neutral-500">{item.period}</p>
+                </div>
+
+                <div className="relative">
+                  <span className="absolute -left-[31px] top-1 h-3 w-3 rounded-full border border-neutral-900 bg-white" />
+
+                  <p className="text-base text-neutral-500">
+                    {item.company}
+                  </p>
+
+                  <h3 className="mt-1 text-2xl font-light text-neutral-950">
+                    {item.role}
+                  </h3>
+
+                  <p className="mt-4 mb-8 max-w-3xl text-sm leading-relaxed text-neutral-750">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
       <Portfolio
         locale={locale as "pt" | "en"}

@@ -27,6 +27,8 @@ export const pt = {
       "Crio experiências digitais que refletem identidade, elegância e posicionamento — com foco em performance, acessibilidade e resultados.",
     text2:
       "Formada em Engenharia Informática pela FEUP, especializo-me em desenvolvimento full-stack e direção visual para marcas que valorizam detalhe, estética e consistência.",
+    cta: "Saber mais",
+
   },
 
   services: {
@@ -204,6 +206,7 @@ courses: {
 },
 
 aboutPage: {
+  
   eyebrow: "Sobre",
   title: "Engenharia com sensibilidade estética",
   intro:
@@ -225,6 +228,41 @@ aboutPage: {
     "Valorizo clareza, detalhe e consistência. Gosto de construir experiências digitais que parecem intencionais em cada decisão — do design à implementação.",
   ctaTitle: "Vamos trabalhar juntos?",
   ctaButton: "Entrar em contacto",
+
+  experienceSection: {
+    eyebrow: "EXPERIÊNCIA",
+    title: "Experiência profissional",
+    items: [
+      {
+        period: "Jul 2025 — Sep 2025",
+        company: "Wevolved Creative Agency",
+        role: "Summer Internship — Frontend",
+        description:
+          "Desenvolvi temas WordPress personalizados de raiz com HTML, CSS, PHP e JavaScript, sem recorrer a temas pré-construídos. Implementei layouts responsivos com base nos designs fornecidos pela equipa de design e trabalhei diretamente com clientes para compreender requisitos e entregar soluções web ajustadas às suas necessidades."
+      },
+      {
+        period: "Feb 2024 — Jul 2024",
+        company: "Continental Engineering Services, Porto",
+        role: "Curricular Internship",
+        description:
+          "Adaptei uma ferramenta previamente desenvolvida para funcionar corretamente com os ambientes Courage e Google Test, melhorando as capacidades de testing e o alinhamento com standards da indústria. Integrei-me num projeto já existente, contribuindo para a robustez e fiabilidade do programa."
+      },
+      {
+        period: "Jul 2023 — Sep 2023",
+        company: "Continental Engineering Services, Porto",
+        role: "Summer Internship",
+        description:
+          "Participei no desenvolvimento de uma nova ferramenta para gerar scripts de testes unitários com base nos inputs do utilizador, com o objetivo de aumentar a eficiência e produtividade no processo de desenvolvimento de software embebido."
+      },
+      {
+        period: "Aug 2022",
+        company: "Magma Studio, Porto",
+        role: "Ambassador",
+        description:
+          "Enquanto Magma Ambassador, tive a responsabilidade de aproximar a comunidade académica do mercado de trabalho, desenvolvendo competências como trabalho em equipa e resolução de problemas."
+      }
+    ]
+  },
 },
 tutoringPage: {
   hero: {

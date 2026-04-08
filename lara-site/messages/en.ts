@@ -27,6 +27,7 @@ export const en = {
       "I create digital experiences that reflect identity, elegance and positioning — with a focus on performance, accessibility and results.",
     text2:
       "Graduated in Computer Engineering from FEUP, I specialize in full-stack development and visual direction for brands that value detail, aesthetics and consistency.",
+    cta: "Learn more",
   },
 
   services: {
@@ -120,10 +121,7 @@ faq: {
       q: "Do you offer maintenance after launch?",
       a: "Yes. There are monthly packages that include updates, backups, monitoring, and small changes.",
     },
-    {
-      q: "How does payment work?",
-      a: "Payment is milestone-based: 30% at the start, 40% after design approval, and 30% at launch. I accept bank transfer or MB Way.",
-    },
+    
   ],
 },
 
@@ -224,6 +222,40 @@ aboutPage: {
     "I value clarity, detail, and consistency. I like building digital experiences that feel intentional in every decision — from design to implementation.",
   ctaTitle: "Shall we work together?",
   ctaButton: "Get in touch",
+  experienceSection: {
+    eyebrow: "EXPERIENCE",
+    title: "Professional experience",
+    items: [
+      {
+        period: "Jul 2025 — Sep 2025",
+        company: "Wevolved Creative Agency",
+        role: "Summer Internship — Frontend",
+        description:
+          "I developed custom WordPress themes from scratch using HTML, CSS, PHP and JavaScript, avoiding pre-built themes. I implemented responsive layouts based on designs provided by the design team and worked directly with clients to understand requirements and deliver tailored web solutions."
+      },
+      {
+        period: "Feb 2024 — Jul 2024",
+        company: "Continental Engineering Services, Porto",
+        role: "Curricular Internship",
+        description:
+          "During this internship I adapted the pre-developed tool to work perfectly with the Courage and Google Test environments, improving testing capabilities and alignment with industry standards. I integrated into an established project, contributing to the overall robustness and reliability of the program."
+      },
+      {
+        period: "Jul 2023 — Sep 2023",
+        company: "Continental Engineering Services, Porto",
+        role: "Summer Internship",
+        description:
+          "I contributed to the development of a new tool to generate unit test scripts based on user inputs, helping increase efficiency and productivity in embedded software development."
+      },
+      {
+        period: "Aug 2022",
+        company: "Magma Studio, Porto",
+        role: "Ambassador",
+        description:
+          "As a Magma Ambassador, I helped connect the campus community with the job market while developing skills such as teamwork and problem solving."
+      }
+    ]
+  },
 },
 
 tutoringPage: {

@@ -51,7 +51,7 @@ export function Process({ dict }: ProcessProps) {
                       <h3 className="text-lg font-light text-neutral-950 sm:text-xl">
                         {s.title}
                       </h3>
-                      <p className="text-sm text-neutral-500">{s.time}</p>
+                      
                     </div>
 
                     <p className="mt-2 text-sm leading-relaxed text-neutral-600">

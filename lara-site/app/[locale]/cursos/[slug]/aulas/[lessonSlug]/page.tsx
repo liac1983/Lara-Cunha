@@ -1,7 +1,8 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { PortableText } from "@portabletext/react"
+import { PortableText, type PortableTextComponents } from "@portabletext/react"
 import { Section } from "@/components/Section"
+import { ExerciseBlock } from "@/components/courses/ExerciseBlock"
 import { getLesson } from "@/lib/sanity/queries"
 import { getDictionary } from "@/lib/i18n"
 
@@ -39,6 +40,73 @@ type Lesson = {
   resources?: Resource[]
 }
 
+const portableTextComponents: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => (
+      <p className="mb-4 text-lg leading-relaxed text-neutral-800">
+        {children}
+      </p>
+    ),
+    h1: ({ children }) => (
+      <h1 className="mb-4 text-3xl font-medium text-neutral-950">
+        {children}
+      </h1>
+    ),
+    h2: ({ children }) => (
+      <h2 className="mb-4 text-2xl font-medium text-neutral-950">
+        {children}
+      </h2>
+    ),
+    h3: ({ children }) => (
+      <h3 className="mb-3 text-xl font-medium text-neutral-950">
+        {children}
+      </h3>
+    ),
+    blockquote: ({ children }) => (
+      <blockquote className="my-6 border-l-2 border-black/10 pl-4 italic text-neutral-600">
+        {children}
+      </blockquote>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="mb-6 list-disc pl-6 text-lg leading-relaxed text-neutral-800">
+        {children}
+      </ul>
+    ),
+    number: ({ children }) => (
+      <ol className="mb-6 list-decimal pl-6 text-lg leading-relaxed text-neutral-800">
+        {children}
+      </ol>
+    ),
+  },
+  listItem: {
+    bullet: ({ children }) => <li className="mb-2">{children}</li>,
+    number: ({ children }) => <li className="mb-2">{children}</li>,
+  },
+  marks: {
+    strong: ({ children }) => (
+      <strong className="font-semibold text-neutral-950">{children}</strong>
+    ),
+    em: ({ children }) => <em className="italic">{children}</em>,
+    link: ({ children, value }) => {
+      const href = value?.href || "#"
+      const isExternal = href.startsWith("http")
+
+      return (
+        <a
+          href={href}
+          target={isExternal ? "_blank" : undefined}
+          rel={isExternal ? "noreferrer" : undefined}
+          className="underline decoration-black/20 underline-offset-4 hover:decoration-black/50"
+        >
+          {children}
+        </a>
+      )
+    },
+  },
+}
+
 export default async function LessonPage({
   params,
 }: {
@@ -51,19 +119,21 @@ export default async function LessonPage({
   const lesson: Lesson | null = await getLesson(slug, lessonSlug)
   if (!lesson) return notFound()
 
+  const currentLocale = locale as "pt" | "en"
+
   const number =
     typeof lesson.lessonNumber === "number"
       ? String(lesson.lessonNumber).padStart(2, "0")
       : null
 
   const localizedTitle =
-    lesson.title?.[locale as "pt" | "en"] || lesson.title?.pt || ""
+    lesson.title?.[currentLocale] || lesson.title?.pt || ""
 
   const localizedDuration =
-    lesson.duration?.[locale as "pt" | "en"] || lesson.duration?.pt || ""
+    lesson.duration?.[currentLocale] || lesson.duration?.pt || ""
 
   const localizedTheory =
-    lesson.theory?.[locale as "pt" | "en"] || lesson.theory?.pt || null
+    lesson.theory?.[currentLocale] || lesson.theory?.pt || null
 
   return (
     <Section
@@ -77,15 +147,17 @@ export default async function LessonPage({
       }
     >
       <div className="grid gap-8">
-        {/* TEORIA */}
         <div className="rounded-2xl border border-black/10 bg-white p-8 sm:p-10">
           <h3 className="text-sm tracking-[0.25em] text-neutral-500">
             {dict.courses.theory}
           </h3>
 
-          <div className="prose prose-neutral mt-6 max-w-none">
+          <div className="mt-6 max-w-none">
             {localizedTheory ? (
-              <PortableText value={localizedTheory} />
+              <PortableText
+                value={localizedTheory}
+                components={portableTextComponents}
+              />
             ) : (
               <p className="text-sm text-neutral-600">
                 {dict.courses.noTheory}
@@ -94,7 +166,6 @@ export default async function LessonPage({
           </div>
         </div>
 
-        {/* EXERCÍCIOS */}
         <div className="rounded-2xl border border-black/10 bg-white p-8 sm:p-10">
           <h3 className="text-sm tracking-[0.25em] text-neutral-500">
             {dict.courses.exercises}
@@ -104,24 +175,26 @@ export default async function LessonPage({
             {lesson.exercises?.length ? (
               lesson.exercises.map((ex, i) => {
                 const exerciseTitle =
-                  ex.title?.[locale as "pt" | "en"] ||
+                  ex.title?.[currentLocale] ||
                   ex.title?.pt ||
                   `${dict.courses.exercises} ${i + 1}`
 
                 const exerciseStatement =
-                  ex.statement?.[locale as "pt" | "en"] || ex.statement?.pt || ""
+                  ex.statement?.[currentLocale] || ex.statement?.pt || ""
+
+                const exerciseSolution =
+                  ex.solution?.[currentLocale] || ex.solution?.pt || ""
 
                 return (
-                  <div key={i} className="rounded-xl border border-black/10 p-6">
-                    <p className="text-sm font-medium text-neutral-950">
-                      {exerciseTitle}
-                    </p>
-                    {exerciseStatement ? (
-                      <p className="mt-2 text-sm leading-relaxed text-neutral-600">
-                        {exerciseStatement}
-                      </p>
-                    ) : null}
-                  </div>
+                  <ExerciseBlock
+                    key={i}
+                    label={dict.courses.exercises}
+                    number={i + 1}
+                    title={exerciseTitle}
+                    statement={exerciseStatement}
+                    difficulty={ex.difficulty}
+                    solution={exerciseSolution}
+                  />
                 )
               })
             ) : (
@@ -132,7 +205,6 @@ export default async function LessonPage({
           </div>
         </div>
 
-        {/* HOMEWORK */}
         <div className="rounded-2xl border border-black/10 bg-white p-8 sm:p-10">
           <h3 className="text-sm tracking-[0.25em] text-neutral-500">
             {dict.courses.homework}
@@ -142,24 +214,26 @@ export default async function LessonPage({
             {lesson.homework?.length ? (
               lesson.homework.map((h, i) => {
                 const homeworkTitle =
-                  h.title?.[locale as "pt" | "en"] ||
+                  h.title?.[currentLocale] ||
                   h.title?.pt ||
                   `${dict.courses.homework} ${i + 1}`
 
                 const homeworkStatement =
-                  h.statement?.[locale as "pt" | "en"] || h.statement?.pt || ""
+                  h.statement?.[currentLocale] || h.statement?.pt || ""
+
+                const homeworkSolution =
+                  h.solution?.[currentLocale] || h.solution?.pt || ""
 
                 return (
-                  <div key={i} className="rounded-xl border border-black/10 p-6">
-                    <p className="text-sm font-medium text-neutral-950">
-                      {homeworkTitle}
-                    </p>
-                    {homeworkStatement ? (
-                      <p className="mt-2 text-sm leading-relaxed text-neutral-600">
-                        {homeworkStatement}
-                      </p>
-                    ) : null}
-                  </div>
+                  <ExerciseBlock
+                    key={i}
+                    label={dict.courses.homework}
+                    number={i + 1}
+                    title={homeworkTitle}
+                    statement={homeworkStatement}
+                    difficulty={h.difficulty}
+                    solution={homeworkSolution}
+                  />
                 )
               })
             ) : (
@@ -170,7 +244,6 @@ export default async function LessonPage({
           </div>
         </div>
 
-        {/* RECURSOS */}
         <div className="rounded-2xl border border-black/10 bg-white p-8 sm:p-10">
           <h3 className="text-sm tracking-[0.25em] text-neutral-500">
             {dict.courses.resources}
@@ -180,7 +253,7 @@ export default async function LessonPage({
             {lesson.resources?.length ? (
               lesson.resources.map((r, i) => {
                 const resourceLabel =
-                  r.label?.[locale as "pt" | "en"] || r.label?.pt || r.url || ""
+                  r.label?.[currentLocale] || r.label?.pt || r.url || ""
 
                 return (
                   <a
@@ -202,7 +275,6 @@ export default async function LessonPage({
           </div>
         </div>
 
-        {/* VOLTAR */}
         <div className="flex justify-center">
           <Link
             href={`/${locale}/cursos/${lesson.courseSlug}`}
@@ -215,4 +287,5 @@ export default async function LessonPage({
     </Section>
   )
 }
+
 

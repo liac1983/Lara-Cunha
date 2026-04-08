@@ -42,7 +42,7 @@ export function Services({ locale, services, dict }: ServicesProps) {
       id="servicos"
       eyebrow={dict.services.eyebrow}
       title={dict.services.title}
-      subtitle={dict.services.subtitle}
+      
       className="bg-white"
     >
       <div className="space-y-8">
@@ -99,26 +99,13 @@ export function Services({ locale, services, dict }: ServicesProps) {
                   ) : null}
                 </div>
 
-                <div className="relative pl-10 sm:pl-12">
-                  <span className="absolute left-0 top-2 h-16 w-px bg-neutral-200" />
-
-                  <div className="text-right">
-                    <p className="text-[11px] tracking-[0.25em] text-neutral-500">
-                      {dict.services.priceLabel}
-                    </p>
-                    <p className="mt-2 text-3xl font-medium text-neutral-900">
-                      <span className="ml-1">{s.priceFrom}</span>
-                    </p>
-                  </div>
-                </div>
+                
               </div>
             </div>
           )
         })}
 
-        <p className="pt-6 text-center text-sm text-neutral-500">
-          {dict.services.footerNote}
-        </p>
+        
       </div>
     </Section>
   )
